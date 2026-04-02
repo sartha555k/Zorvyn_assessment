@@ -64,12 +64,19 @@ export default {
         "secondary-container": "#8c1520"
       },
       fontFamily: {
-        "headline": ["Plus Jakarta Sans"],
-        "body": ["Plus Jakarta Sans"],
-        "label": ["Space Grotesk"],
-        "mono": ["DM Mono"]
+        "headline": ["Plus Jakarta Sans", "sans-serif"],
+        "body": ["Plus Jakarta Sans", "sans-serif"],
+        "label": ["Space Grotesk", "sans-serif"],
+        "mono": ["DM Mono", "monospace"]
       },
-      borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      borderRadius: {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
+        "full": "9999px"
+      },
     },
   },
   plugins: [
