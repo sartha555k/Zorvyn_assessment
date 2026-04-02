@@ -1,0 +1,31 @@
+import { SearchX } from 'lucide-react';
+import { Button } from './Button';
+
+interface EmptyStateProps {
+  message?: string;
+  onAction?: () => void;
+  actionLabel?: string;
+}
+
+export function EmptyState({
+  message = 'No transactions found',
+  onAction,
+  actionLabel = 'Clear Filters',
+}: EmptyStateProps) {
+  return (
+    <div className="flex flex-col items-center justify-center py-20 text-center">
+      <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-full bg-[#1e1f26] border border-white/5">
+        <SearchX size={32} className="text-slate-500" />
+      </div>
+      <h2 className="text-xl font-headline font-bold text-white mb-2">{message}</h2>
+      <p className="text-sm text-slate-500 mb-8 max-w-xs">
+        We couldn&apos;t find any entries matching your current filters. Try adjusting your parameters.
+      </p>
+      {onAction && (
+        <Button variant="secondary" onClick={onAction}>
+          {actionLabel}
+        </Button>
+      )}
+    </div>
+  );
+}

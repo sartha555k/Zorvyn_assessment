@@ -2,29 +2,225 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-    .glass-card {
-        background: rgba(24, 25, 32, 0.7);
-        backdrop-filter: blur(12px);
-        position: relative;
-    }
-    .glass-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        padding: 1.5px;
-        background: linear-gradient(135deg, #a4ffb933, #5bb1ff33);
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        pointer-events: none;
-    }
-    .glow-hover:hover {
-        box-shadow: 0 0 25px rgba(0, 253, 135, 0.15);
-    }
+/* ============================================
+   NEON VELOCITY DESIGN SYSTEM STYLES
+   ============================================ */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #24252d transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #24252d;
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #47474e;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-modal-in {
+  animation: modalIn 0.2s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.4s ease-out;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   GLASS CARD
+   ============================================ */
+
+.glass-card {
+  background: rgba(24, 25, 32, 0.7);
+  backdrop-filter: blur(12px);
+  position: relative;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #a4ffb933, #5bb1ff33);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ============================================
+   GRADIENT BORDER (for special cards)
+   ============================================ */
+
+.ai-gradient-border {
+  position: relative;
+  background: #0f1117;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+
+.ai-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #a4ffb9, #5bb1ff, #A78BFA);
+}
+
+/* ============================================
+   MISC UTILITIES
+   ============================================ */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ghost border for hover effects */
+.ghost-border {
+  position: relative;
+  border: 1px solid rgba(0, 253, 135, 0.1);
+}
+
+.ghost-border:hover {
+  border-color: rgba(0, 253, 135, 0.3);
+}
+
+/* Glow hover for interactive cards */
+.glow-hover:hover {
+  box-shadow: 0 0 25px rgba(0, 253, 135, 0.15);
+}
+
+/* Tabular numbers for financial data */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Material symbols override */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Page transition fade */
+main {
+  animation: fadeUp 0.3s ease-out;
+}
+
+/* ============================================
+   RECHARTS CUSTOMIZATIONS
+   ============================================ */
+
+.recharts-default-tooltip {
+  border-radius: 12px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+}
+
+.recharts-tooltip-cursor {
+  stroke: rgba(164, 255, 185, 0.1);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+
+::selection {
+  background: #00fd87;
+  color: #005b2c;
+}
+
+/* ============================================
+   DARK MODE ONLY (always dark for now)
+   ============================================ */
+
+body {
+  background-color: #0d0e13;
+  color: #f7f5fd;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
