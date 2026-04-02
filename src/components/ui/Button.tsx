@@ -31,9 +31,9 @@ export function Button({
         variant === 'primary' &&
           'bg-gradient-to-r from-[#a4ffb9] to-[#00fd87] text-[#006532] hover:scale-95 shadow-[0_0_20px_rgba(0,253,135,0.2)]',
         variant === 'secondary' &&
-          'bg-transparent border border-[#a4ffb9]/20 text-[#a4ffb9] hover:bg-[#a4ffb9]/10',
+          'bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 dark:bg-transparent dark:border-[#a4ffb9]/20 dark:text-[#a4ffb9] dark:hover:bg-[#a4ffb9]/10',
         variant === 'ghost' &&
-          'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white',
+          'bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 dark:border-transparent dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white',
         variant === 'danger' &&
           'bg-[#ff706f]/10 border border-[#ff706f]/40 text-[#ff706f] hover:bg-[#ff706f]/20',
         // Sizes

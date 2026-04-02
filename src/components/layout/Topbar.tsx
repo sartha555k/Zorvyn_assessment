@@ -40,25 +40,25 @@ export function Topbar({ onOpenMobileNav }: { onOpenMobileNav?: () => void }) {
       <div className="flex items-center gap-3 md:gap-6">
         {/* Search */}
         <div className="flex items-center bg-gray-100 dark:bg-[#121319]/40 backdrop-blur-md border border-gray-200 dark:border-white/5 rounded-xl px-3 py-2 gap-2 focus-within:ring-1 focus-within:ring-indigo-500 dark:focus-within:ring-[#00fd87] transition-all w-32 sm:w-48 md:w-64 focus-within:w-64 md:focus-within:w-80">
-          <Search size={14} className="text-gray-400 dark:text-slate-500 shrink-0" />
+          <Search size={14} className="text-gray-600 dark:text-slate-500 shrink-0" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search..."
-            className="bg-transparent border-none p-0 text-xs focus:ring-0 placeholder:text-gray-400 dark:placeholder:text-slate-600 w-full text-gray-900 dark:text-white outline-none"
+            className="bg-transparent border-none p-0 text-xs focus:ring-0 placeholder:text-gray-500 dark:placeholder:text-slate-600 w-full text-gray-900 dark:text-white outline-none"
           />
         </div>
 
         {/* Role Toggle */}
-        <div className="hidden lg:flex items-center bg-[#181920] rounded-full p-1 border border-white/5">
+        <div className="hidden lg:flex items-center bg-gray-100 rounded-full p-1 border border-gray-200 dark:bg-[#181920] dark:border-white/5">
           <button
             onClick={() => { setRole('viewer'); addToast('info', 'Switched to Viewer view'); }}
             className={clsx(
               'px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all',
               role === 'viewer'
-                ? 'text-amber-400 bg-amber-400/10'
-                : 'text-slate-500 hover:text-slate-300'
+                ? 'text-amber-700 bg-amber-100 dark:text-amber-400 dark:bg-amber-400/10'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-slate-500 dark:hover:text-slate-300 dark:hover:bg-transparent'
             )}
           >
             Viewer
@@ -68,8 +68,8 @@ export function Topbar({ onOpenMobileNav }: { onOpenMobileNav?: () => void }) {
             className={clsx(
               'px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all',
               role === 'admin'
-                ? 'text-[#00fd87] bg-[#00fd87]/10'
-                : 'text-slate-500 hover:text-slate-300'
+                ? 'text-[#006532] bg-emerald-100 dark:text-[#00fd87] dark:bg-[#00fd87]/10'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-slate-500 dark:hover:text-slate-300 dark:hover:bg-transparent'
             )}
           >
             Admin
@@ -91,7 +91,7 @@ export function Topbar({ onOpenMobileNav }: { onOpenMobileNav?: () => void }) {
         </button>
 
         {/* Notifications */}
-        <button className="relative p-2 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors">
+        <button className="relative p-2 rounded-full text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors">
           <Bell size={18} />
           <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#ff706f] rounded-full" />
         </button>

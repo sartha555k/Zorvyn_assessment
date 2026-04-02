@@ -16,7 +16,7 @@ export function Input({ label, error, className, icon, ...props }: InputProps) {
       )}
       <div className="relative">
         {icon && (
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500">
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 dark:text-slate-500">
             {icon}
           </div>
         )}
@@ -26,7 +26,7 @@ export function Input({ label, error, className, icon, ...props }: InputProps) {
             'w-full bg-white dark:bg-slate-700 rounded-xl py-2.5 text-sm text-gray-900 dark:text-slate-100',
             'border border-gray-200 dark:border-slate-600 outline-none transition-all',
             'focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400',
-            'placeholder:text-gray-400 dark:placeholder:text-slate-400',
+            'placeholder:text-gray-500 dark:placeholder:text-slate-400',
             icon ? 'pl-10 pr-4' : 'px-4',
             error && 'border-rose-500 focus:ring-rose-500 dark:border-rose-500 dark:focus:ring-rose-500',
             className

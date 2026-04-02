@@ -68,7 +68,7 @@ export function ProfilePage() {
                   {role}
                 </span>
               </div>
-              <p className="text-xs text-gray-400 dark:text-slate-500">Member since {currentUser.joinedDate || 'January 2025'}</p>
+              <p className="text-xs text-gray-600 dark:text-slate-500">Member since {currentUser.joinedDate || 'January 2025'}</p>
               
               <div className="my-6 border-b border-gray-100 dark:border-slate-700"></div>
               
@@ -104,14 +104,14 @@ export function ProfilePage() {
                       "p-3 rounded-xl border text-left transition-all duration-200",
                       role === 'admin' 
                         ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20" 
-                        : "border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500"
+                        : "border-gray-200 dark:border-slate-600 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-slate-500 dark:hover:bg-transparent"
                     )}
                   >
                     <div className="flex items-center gap-2">
-                      <ShieldIcon size={16} className={role === 'admin' ? "text-indigo-600 dark:text-indigo-400" : "text-gray-400 dark:text-slate-500"} />
+                      <ShieldIcon size={16} className={role === 'admin' ? "text-indigo-600 dark:text-indigo-400" : "text-gray-600 dark:text-slate-500"} />
                       <span className={clsx("font-bold text-sm", role === 'admin' ? "text-indigo-900 dark:text-indigo-100" : "text-gray-700 dark:text-slate-300")}>Admin</span>
                     </div>
-                    <p className={clsx("text-xs mt-1", role === 'admin' ? "text-indigo-600/70 dark:text-indigo-400/70" : "text-gray-400 dark:text-slate-500")}>Full access</p>
+                    <p className={clsx("text-xs mt-1", role === 'admin' ? "text-indigo-600/70 dark:text-indigo-400/70" : "text-gray-600 dark:text-slate-500")}>Full access</p>
                   </button>
                   <button 
                     onClick={() => handleRoleSwitch('viewer')}
@@ -119,14 +119,14 @@ export function ProfilePage() {
                       "p-3 rounded-xl border text-left transition-all duration-200",
                       role === 'viewer' 
                         ? "border-amber-500 bg-amber-50 dark:bg-amber-900/20" 
-                        : "border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500"
+                        : "border-gray-200 dark:border-slate-600 hover:border-gray-300 hover:bg-gray-50 dark:hover:border-slate-500 dark:hover:bg-transparent"
                     )}
                   >
                     <div className="flex items-center gap-2">
-                      <Eye size={16} className={role === 'viewer' ? "text-amber-600 dark:text-amber-400" : "text-gray-400 dark:text-slate-500"} />
+                      <Eye size={16} className={role === 'viewer' ? "text-amber-600 dark:text-amber-400" : "text-gray-600 dark:text-slate-500"} />
                       <span className={clsx("font-bold text-sm", role === 'viewer' ? "text-amber-900 dark:text-amber-100" : "text-gray-700 dark:text-slate-300")}>Viewer</span>
                     </div>
-                    <p className={clsx("text-xs mt-1", role === 'viewer' ? "text-amber-600/70 dark:text-amber-400/70" : "text-gray-400 dark:text-slate-500")}>Read only</p>
+                    <p className={clsx("text-xs mt-1", role === 'viewer' ? "text-amber-600/70 dark:text-amber-400/70" : "text-gray-600 dark:text-slate-500")}>Read only</p>
                   </button>
                 </div>
               </div>
@@ -395,7 +395,7 @@ export function ProfilePage() {
             </div>
           </Card>
 
-          <div className="py-6 text-center text-xs text-gray-400 dark:text-slate-500">
+          <div className="py-6 text-center text-xs text-gray-600 dark:text-slate-500">
              Made with ♥ for evaluation
           </div>
 

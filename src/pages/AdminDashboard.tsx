@@ -19,8 +19,10 @@ import { CATEGORY_COLORS, CATEGORIES, Category, Transaction, PaymentMethod } fro
 import { format, parseISO, subMonths, startOfMonth, endOfMonth } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 import clsx from 'clsx';
+import { useChartTheme } from '../hooks/useChartTheme';
 
 export function AdminDashboard() {
+  const chartTheme = useChartTheme();
   const navigate = useNavigate();
   const { transactions, addTransaction, updateTransaction, deleteTransaction, bulkDelete, importTransactions, resetToDemo } = useTransactionStore();
   const { role, addToast } = useAuthStore();
@@ -46,8 +48,8 @@ export function AdminDashboard() {
         <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-full bg-[#ff706f]/10 border border-[#ff706f]/20">
           <Lock size={32} className="text-[#ff706f]" />
         </div>
-        <h2 className="text-2xl font-headline font-bold text-white mb-2">Access Denied</h2>
-        <p className="text-slate-500 mb-6">You need Admin access to view this page</p>
+        <h2 className="text-2xl font-headline font-bold text-gray-900 dark:text-white mb-2">Access Denied</h2>
+        <p className="text-gray-600 dark:text-slate-500 mb-6">You need Admin access to view this page</p>
         <Button onClick={() => navigate('/')}>Go to Dashboard</Button>
       </div>
     );
@@ -182,8 +184,8 @@ export function AdminDashboard() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-4">
           <div>
-            <h1 className="text-xl md:text-2xl font-headline font-bold text-white">Admin Dashboard</h1>
-            <p className="text-sm text-slate-500">Manage transactions and system data</p>
+            <h1 className="text-xl md:text-2xl font-headline font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+            <p className="text-sm text-gray-600 dark:text-slate-500">Manage transactions and system data</p>
           </div>
           <Badge color="#5bb1ff">
             <Shield size={10} className="inline mr-1" />ADMIN
@@ -217,7 +219,7 @@ export function AdminDashboard() {
           { label: 'Active Categories', value: uniqueCategories.toString(), color: '#a855f7' },
         ].map(stat => (
           <Card key={stat.label} glowing className="p-5">
-            <p className="text-[10px] font-label uppercase tracking-widest text-slate-500 mb-2">{stat.label}</p>
+            <p className="text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500 mb-2">{stat.label}</p>
             <p className="text-2xl font-mono font-medium" style={{ color: stat.color }}>{stat.value}</p>
           </Card>
         ))}
@@ -226,21 +228,22 @@ export function AdminDashboard() {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
-          <h2 className="font-headline font-bold text-white mb-4">Monthly Summary</h2>
+          <h2 className="font-headline font-bold text-gray-900 dark:text-white mb-4">Monthly Summary</h2>
           <div className="h-64 md:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
                 <XAxis
                   dataKey="month"
-                  stroke="#75757c"
+                  stroke={chartTheme.axisColor}
+                  tick={{ fill: chartTheme.textColor }}
                   fontSize={11}
                   fontFamily="DM Mono"
                   interval="preserveStartEnd"
                   minTickGap={18}
                 />
-                <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-                <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+                <YAxis stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                <Tooltip contentStyle={chartTheme.tooltipContentStyleCompact} itemStyle={{ color: chartTheme.tooltipText }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
                 <Bar dataKey="income" fill="#00fd87" name="Income" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="expense" fill="#ff706f" name="Expense" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -249,7 +252,7 @@ export function AdminDashboard() {
         </Card>
 
         <Card className="p-6">
-          <h2 className="font-headline font-bold text-white mb-4">Category Distribution</h2>
+          <h2 className="font-headline font-bold text-gray-900 dark:text-white mb-4">Category Distribution</h2>
           <div className="h-64 md:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -258,7 +261,7 @@ export function AdminDashboard() {
                     <Cell key={entry.name} fill={CATEGORY_COLORS[entry.name as Category] || '#6b7280'} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+                <Tooltip contentStyle={chartTheme.tooltipContentStyleCompact} itemStyle={{ color: chartTheme.tooltipText }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -267,8 +270,8 @@ export function AdminDashboard() {
 
       {/* Bulk Actions */}
       {selectedIds.length > 0 && (
-        <div className="flex items-center gap-4 px-4 py-3 bg-[#ff706f]/10 border border-[#ff706f]/30 rounded-xl">
-          <span className="text-sm font-bold text-white">{selectedIds.length} selected</span>
+        <div className="flex items-center gap-4 px-4 py-3 bg-rose-50 border border-rose-200 dark:bg-[#ff706f]/10 dark:border-[#ff706f]/30 rounded-xl">
+          <span className="text-sm font-bold text-gray-900 dark:text-white">{selectedIds.length} selected</span>
           <Button variant="danger" size="sm" onClick={() => { bulkDelete(selectedIds); setSelectedIds([]); addToast('success', `${selectedIds.length} deleted`); }}>
             <Trash2 size={14} /> Delete Selected
           </Button>
@@ -277,14 +280,14 @@ export function AdminDashboard() {
 
       {/* Transactions Table */}
       <Card className="overflow-hidden">
-        <div className="px-6 py-4 border-b border-white/5 flex justify-between items-center">
-          <h2 className="font-headline font-bold text-white">All Transactions</h2>
-          <span className="text-xs font-mono text-slate-400">{transactions.length} total</span>
+        <div className="px-6 py-4 border-b border-gray-200 dark:border-white/5 flex justify-between items-center">
+          <h2 className="font-headline font-bold text-gray-900 dark:text-white">All Transactions</h2>
+          <span className="text-xs font-mono text-gray-600 dark:text-slate-400">{transactions.length} total</span>
         </div>
         <div className="w-full overflow-x-auto max-h-[500px] overflow-y-auto">
           <table className="w-full text-sm">
-            <thead className="sticky top-0 bg-[#181920] z-10">
-              <tr className="border-b border-white/5">
+            <thead className="sticky top-0 bg-gray-100 dark:bg-[#181920] z-10">
+              <tr className="border-b border-gray-200 dark:border-white/5">
                 <th className="px-4 py-3 text-left">
                   <input
                     type="checkbox"
@@ -293,35 +296,35 @@ export function AdminDashboard() {
                       else setSelectedIds(sortedTxs.map(t => t.id));
                     }}
                     checked={selectedIds.length === sortedTxs.length && sortedTxs.length > 0}
-                    className="rounded bg-[#24252d] border-white/20 text-[#00fd87] focus:ring-[#00fd87]"
+                    className="rounded bg-white border-gray-300 text-emerald-600 focus:ring-emerald-500 dark:bg-[#24252d] dark:border-white/20 dark:text-[#00fd87] dark:focus:ring-[#00fd87]"
                   />
                 </th>
-                <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500">Date</th>
-                <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500">Description</th>
-                <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500">Category</th>
-                <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-slate-500">Amount</th>
-                <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-slate-500">Actions</th>
+                <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Date</th>
+                <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Description</th>
+                <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Category</th>
+                <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Amount</th>
+                <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Actions</th>
               </tr>
             </thead>
             <tbody>
               {sortedTxs.map(tx => (
-                <tr key={tx.id} className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors">
+                <tr key={tx.id} className="border-b border-gray-100 dark:border-white/[0.03] hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-3">
                     <input
                       type="checkbox"
                       checked={selectedIds.includes(tx.id)}
                       onChange={() => setSelectedIds(prev => prev.includes(tx.id) ? prev.filter(i => i !== tx.id) : [...prev, tx.id])}
-                      className="rounded bg-[#24252d] border-white/20 text-[#00fd87] focus:ring-[#00fd87]"
+                      className="rounded bg-white border-gray-300 text-emerald-600 focus:ring-emerald-500 dark:bg-[#24252d] dark:border-white/20 dark:text-[#00fd87] dark:focus:ring-[#00fd87]"
                     />
                   </td>
-                  <td className="px-4 py-3 text-xs font-mono text-slate-400 whitespace-nowrap">{format(parseISO(tx.date), 'dd MMM yy')}</td>
+                  <td className="px-4 py-3 text-xs font-mono text-gray-600 dark:text-slate-400 whitespace-nowrap">{format(parseISO(tx.date), 'dd MMM yy')}</td>
                   <td className="px-4 py-3">
-                    <p className="text-sm font-bold text-white">{tx.merchant}</p>
-                    <p className="text-[10px] text-slate-500 truncate max-w-[180px]">{tx.description}</p>
+                    <p className="text-sm font-bold text-gray-900 dark:text-white">{tx.merchant}</p>
+                    <p className="text-[10px] text-gray-600 dark:text-slate-500 truncate max-w-[180px]">{tx.description}</p>
                   </td>
                   <td className="px-4 py-3"><Badge color={CATEGORY_COLORS[tx.category]}>{tx.category}</Badge></td>
                   <td className="px-4 py-3 text-right">
-                    <span className={clsx('font-mono font-medium', tx.type === 'income' ? 'text-[#00fd87]' : 'text-[#ff706f]')}>
+                    <span className={clsx('font-mono font-medium', tx.type === 'income' ? 'text-emerald-700 dark:text-[#00fd87]' : 'text-rose-600 dark:text-[#ff706f]')}>
                       {tx.type === 'income' ? '+' : '-'}{formatCurrency(tx.amount)}
                     </span>
                   </td>
@@ -329,12 +332,12 @@ export function AdminDashboard() {
                     {deleteConfirmId === tx.id ? (
                       <div className="flex items-center justify-end gap-2">
                         <button onClick={() => handleDelete(tx.id)} className="p-1.5 rounded-lg bg-[#ff706f]/10 text-[#ff706f]"><Check size={14} /></button>
-                        <button onClick={() => setDeleteConfirmId(null)} className="p-1.5 rounded-lg bg-white/5 text-slate-400"><X size={14} /></button>
+                        <button onClick={() => setDeleteConfirmId(null)} className="p-1.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-white/5 dark:text-slate-400"><X size={14} /></button>
                       </div>
                     ) : (
                       <div className="flex items-center justify-end gap-2">
-                        <button onClick={() => openEdit(tx)} className="p-1.5 rounded-lg hover:bg-white/5 text-slate-400 hover:text-white"><Edit2 size={14} /></button>
-                        <button onClick={() => setDeleteConfirmId(tx.id)} className="p-1.5 rounded-lg hover:bg-[#ff706f]/10 text-slate-400 hover:text-[#ff706f]"><Trash2 size={14} /></button>
+                        <button onClick={() => openEdit(tx)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white"><Edit2 size={14} /></button>
+                        <button onClick={() => setDeleteConfirmId(tx.id)} className="p-1.5 rounded-lg hover:bg-rose-50 text-gray-600 hover:text-rose-600 dark:hover:bg-[#ff706f]/10 dark:text-slate-400 dark:hover:text-[#ff706f]"><Trash2 size={14} /></button>
                       </div>
                     )}
                   </td>
@@ -348,12 +351,12 @@ export function AdminDashboard() {
       {/* Import Modal */}
       <Modal isOpen={importModalOpen} onClose={() => setImportModalOpen(false)} title="Import Transactions" titleIcon={<Download size={18} />}>
         <div className="p-6 space-y-4">
-          <p className="text-sm text-slate-400">Paste a JSON array of transactions below. Each object should have: description, date, amount, category, type, merchant, paymentMethod.</p>
+          <p className="text-sm text-gray-600 dark:text-slate-400">Paste a JSON array of transactions below. Each object should have: description, date, amount, category, type, merchant, paymentMethod.</p>
           <textarea
             value={importJson}
             onChange={(e) => setImportJson(e.target.value)}
             placeholder='[{"description": "Test", "amount": -500, ...}]'
-            className="w-full h-48 bg-[#24252d] rounded-xl p-4 text-sm text-white border border-white/5 focus:ring-1 focus:ring-[#00fd87] font-mono resize-none"
+            className="w-full h-48 bg-white rounded-xl p-4 text-sm text-gray-900 border border-gray-200 shadow-sm focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 font-mono resize-none dark:bg-[#24252d] dark:text-white dark:border-white/5 dark:focus:ring-[#00fd87]"
           />
           <Button onClick={handleImport} className="w-full">Import Transactions</Button>
         </div>
@@ -363,22 +366,22 @@ export function AdminDashboard() {
       {drawerOpen && (
         <div className="fixed inset-0 z-[100] flex items-end justify-end md:items-start">
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
-          <div className="relative w-screen max-w-none bg-[#121319] border-t border-white/10 rounded-t-2xl md:rounded-none md:w-full md:max-w-md md:border-l md:border-t-0 h-[90vh] md:h-full overflow-y-auto animate-modal-in md:animate-slide-in-right">
-            <div className="flex items-center justify-between p-6 border-b border-white/5">
-              <h2 className="text-lg font-headline font-bold text-white">{editingTx ? 'Edit Transaction' : 'Add Transaction'}</h2>
-              <button onClick={() => setDrawerOpen(false)} className="p-1.5 rounded-lg hover:bg-white/5 text-slate-400"><X size={18} /></button>
+          <div className="relative w-screen max-w-none bg-white border-t border-gray-200 rounded-t-2xl md:rounded-none md:w-full md:max-w-md md:border-l md:border-t-0 md:border-gray-200 h-[90vh] md:h-full overflow-y-auto animate-modal-in md:animate-slide-in-right dark:bg-[#121319] dark:border-white/10">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-white/5">
+              <h2 className="text-lg font-headline font-bold text-gray-900 dark:text-white">{editingTx ? 'Edit Transaction' : 'Add Transaction'}</h2>
+              <button onClick={() => setDrawerOpen(false)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 dark:hover:bg-white/5 dark:text-slate-400"><X size={18} /></button>
             </div>
             <div className="p-6 space-y-4">
               <Input label="Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} error={formErrors.description} />
               <Input label="Date" type="date" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} error={formErrors.date} />
               <Input label="Amount (₹)" type="number" value={formData.amount} onChange={(e) => setFormData({ ...formData, amount: e.target.value })} error={formErrors.amount} min="0" />
               <div className="space-y-1.5">
-                <label className="text-xs font-label uppercase tracking-widest text-slate-400">Type</label>
-                <div className="flex bg-[#24252d] rounded-xl overflow-hidden">
+                <label className="text-xs font-label uppercase tracking-widest text-gray-600 dark:text-slate-400">Type</label>
+                <div className="flex bg-gray-100 rounded-xl overflow-hidden border border-gray-200 dark:bg-[#24252d] dark:border-transparent">
                   {(['income', 'expense'] as const).map(type => (
                     <button key={type} onClick={() => setFormData({ ...formData, type })}
                       className={clsx('flex-1 py-2.5 text-sm font-bold capitalize transition-all',
-                        formData.type === type ? type === 'income' ? 'bg-[#00fd87]/15 text-[#00fd87]' : 'bg-[#ff706f]/15 text-[#ff706f]' : 'text-slate-400'
+                        formData.type === type ? type === 'income' ? 'bg-emerald-100 text-emerald-800 dark:bg-[#00fd87]/15 dark:text-[#00fd87]' : 'bg-rose-100 text-rose-800 dark:bg-[#ff706f]/15 dark:text-[#ff706f]' : 'text-gray-600 dark:text-slate-400'
                       )}>{type}</button>
                   ))}
                 </div>
