@@ -5,6 +5,7 @@ import { Transactions } from './pages/Transactions';
 import { Insights } from './pages/Insights';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { ProfilePage } from './pages/ProfilePage';
+import { AIInsightsPage } from './pages/AIInsightsPage';
 import { ThemeInitializer } from './components/ui/ThemeInitializer';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/insights" element={<Insights />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/ai-insights" element={<AIInsightsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

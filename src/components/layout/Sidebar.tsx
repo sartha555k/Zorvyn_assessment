@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Receipt, BarChart3, Shield, Zap, ChevronDown, UserCircle } from 'lucide-react';
+import { LayoutDashboard, Receipt, BarChart3, Shield, Zap, ChevronDown, UserCircle, Sparkles } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useState } from 'react';
 import clsx from 'clsx';
@@ -8,6 +8,7 @@ const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard', adminOnly: false },
   { to: '/transactions', icon: Receipt, label: 'Transactions', adminOnly: false },
   { to: '/insights', icon: BarChart3, label: 'Insights', adminOnly: false },
+  { to: '/ai-insights', icon: Sparkles, label: 'AI Assistant', adminOnly: false },
   { to: '/admin', icon: Shield, label: 'Admin', adminOnly: true },
   { to: '/profile', icon: UserCircle, label: 'Profile', adminOnly: false },
 ];

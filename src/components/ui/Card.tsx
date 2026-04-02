@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import clsx from 'clsx';
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   onClick?: () => void;
   glowing?: boolean;
