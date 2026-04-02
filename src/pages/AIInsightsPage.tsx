@@ -120,10 +120,10 @@ export function AIInsightsPage() {
                   'flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all group',
                   selectedProvider === p.id 
                     ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 ring-1 ring-indigo-500' 
-                    : 'border-gray-100 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-600'
+                    : 'border-gray-100 dark:border-slate-700 hover:border-indigo-300 hover:bg-gray-50 dark:hover:border-slate-600 dark:hover:bg-transparent'
                 )}
               >
-                <p.icon size={24} className={clsx('mb-2', selectedProvider === p.id ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400')} />
+                <p.icon size={24} className={clsx('mb-2', selectedProvider === p.id ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-600 dark:text-slate-400')} />
                 <span className={clsx('text-xs font-bold', selectedProvider === p.id ? 'text-indigo-900 dark:text-indigo-200' : 'text-gray-500 dark:text-slate-400')}>{p.name}</span>
               </button>
             ))}
@@ -268,8 +268,8 @@ export function AIInsightsPage() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide">
             {messages.length === 0 && (
               <div className="text-center py-8">
-                <Bot size={32} className="mx-auto text-gray-300 dark:text-slate-600 mb-2" />
-                <p className="text-xs text-gray-400 dark:text-slate-500">Ask me anything about your finances.<br/>Try "How much did I spend on food?"</p>
+                <Bot size={32} className="mx-auto text-gray-500 dark:text-slate-600 mb-2" />
+                <p className="text-xs text-gray-600 dark:text-slate-500">Ask me anything about your finances.<br/>Try "How much did I spend on food?"</p>
               </div>
             )}
             {messages.map((msg, i) => (
@@ -287,7 +287,7 @@ export function AIInsightsPage() {
             {sending && (
               <div className="flex justify-start">
                 <div className="bg-gray-100 dark:bg-slate-700 p-3 rounded-2xl rounded-tl-none">
-                  <Loader2 size={14} className="animate-spin text-gray-400" />
+                  <Loader2 size={14} className="animate-spin text-gray-600 dark:text-slate-400" />
                 </div>
               </div>
             )}
@@ -302,7 +302,7 @@ export function AIInsightsPage() {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="w-full pl-4 pr-12 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-xl text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-gray-400 dark:placeholder:text-slate-500"
+                className="w-full pl-4 pr-12 py-3 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-xl text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-gray-500 dark:placeholder:text-slate-500"
               />
               <button 
                 onClick={handleSendMessage}
