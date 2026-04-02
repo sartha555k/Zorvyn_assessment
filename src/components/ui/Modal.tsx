@@ -11,7 +11,7 @@ interface ModalProps {
   width?: string;
 }
 
-export function Modal({ isOpen, onClose, children, title, titleIcon, width = 'max-w-xl' }: ModalProps) {
+export function Modal({ isOpen, onClose, children, title, titleIcon, width = 'md:max-w-xl' }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,13 +28,14 @@ export function Modal({ isOpen, onClose, children, title, titleIcon, width = 'ma
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[100] flex items-end justify-center p-0 md:p-4 md:items-center"
       onClick={(e) => e.target === overlayRef.current && onClose()}
     >
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
       <div
         className={clsx(
-          'relative w-full rounded-2xl overflow-hidden',
+          'relative w-screen md:w-full overflow-hidden',
+          'rounded-t-2xl rounded-b-none md:rounded-2xl',
           'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700',
           'shadow-xl dark:shadow-slate-900/50',
           'animate-modal-in',
@@ -55,7 +56,7 @@ export function Modal({ isOpen, onClose, children, title, titleIcon, width = 'ma
             </button>
           </div>
         )}
-        <div className="max-h-[80vh] overflow-y-auto">
+        <div className="max-h-[90vh] md:max-h-[80vh] overflow-y-auto">
           {children}
         </div>
       </div>

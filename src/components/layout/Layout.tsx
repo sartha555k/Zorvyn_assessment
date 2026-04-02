@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
@@ -21,6 +22,7 @@ const toastColors = {
 
 export function Layout() {
   const { toasts, removeToast } = useAuthStore();
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 transition-colors">
@@ -30,11 +32,14 @@ export function Layout() {
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-[#5bb1ff]/[0.03] blur-[100px]" />
       </div>
 
-      <Sidebar />
+      <Sidebar
+        isMobileNavOpen={isMobileNavOpen}
+        onCloseMobileNav={() => setIsMobileNavOpen(false)}
+      />
 
       <div className="md:ml-[72px] min-h-screen flex flex-col relative z-10">
-        <Topbar />
-        <main className="flex-1 pb-24 md:pb-8">
+        <Topbar onOpenMobileNav={() => setIsMobileNavOpen(true)} />
+        <main className="flex-1 pb-8 md:pb-8">
           <Outlet />
         </main>
       </div>

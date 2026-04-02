@@ -142,11 +142,11 @@ export function Transactions() {
   };
 
   return (
-    <section className="p-4 md:p-8 max-w-7xl mx-auto space-y-6">
+    <section className="p-2 md:p-8 max-w-7xl mx-auto space-y-6">
       {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <h1 className="text-xl font-headline font-bold text-gray-900 dark:text-white">Transactions</h1>
+          <h1 className="text-lg md:text-xl font-headline font-bold text-gray-900 dark:text-white">Transactions</h1>
           <span className="px-3 py-0.5 bg-gray-100 dark:bg-[#24252d] text-emerald-600 dark:text-[#00fd87] font-mono text-xs rounded-full border border-gray-200 dark:border-[#00fd87]/20">
             {filteredTransactions.length}
           </span>
@@ -282,7 +282,7 @@ export function Transactions() {
       {/* Table */}
       {paginatedTxs.length > 0 ? (
         <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
+          <div className="w-full overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 dark:border-white/5">
@@ -408,9 +408,9 @@ export function Transactions() {
 
       {/* Drawer */}
       {drawerOpen && (
-        <div className="fixed inset-0 z-[100] flex justify-end">
+        <div className="fixed inset-0 z-[100] flex items-end justify-end md:items-start">
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
-          <div className="relative w-full max-w-md bg-white dark:bg-[#121319] border-l border-gray-200 dark:border-white/10 h-full overflow-y-auto animate-slide-in-right">
+          <div className="relative w-screen max-w-none bg-white dark:bg-[#121319] border-t border-gray-200 dark:border-white/10 rounded-t-2xl md:rounded-none md:w-full md:max-w-md md:border-l md:border-t-0 h-[90vh] md:h-full overflow-y-auto animate-modal-in md:animate-slide-in-right">
             <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-white/5">
               <h2 className="text-lg font-headline font-bold text-gray-900 dark:text-white">
                 {editingTx ? 'Edit Transaction' : 'Add Transaction'}

@@ -97,17 +97,17 @@ export function AIInsightsPage() {
 
   if (!provider) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center p-4">
+      <div className="min-h-[80vh] flex items-center justify-center p-2 md:p-4">
         <Card className="w-full max-w-xl p-8 bg-white dark:bg-slate-800 border-gray-100 dark:border-slate-700 shadow-2xl">
           <div className="flex flex-col items-center text-center mb-8">
             <div className="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center mb-4 ring-1 ring-indigo-500/20">
               <Sparkles size={32} className="text-indigo-600 dark:text-indigo-400" />
             </div>
-            <h1 className="text-2xl font-headline font-bold text-gray-900 dark:text-white">Connect AI Assistant</h1>
+            <h1 className="text-xl md:text-2xl font-headline font-bold text-gray-900 dark:text-white">Connect AI Assistant</h1>
             <p className="text-gray-500 dark:text-slate-400 mt-2">Choose your preferred AI model to analyze your financial data.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             {[
               { id: 'gpt' as const, name: 'OpenAI (GPT-4)', icon: Bot },
               { id: 'gemini' as const, name: 'Google Gemini', icon: CheckCircle2 },
@@ -159,14 +159,14 @@ export function AIInsightsPage() {
   }
 
   return (
-    <div className="p-4 md:p-8 max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+    <div className="p-2 md:p-8 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Sparkles size={16} className="text-indigo-500 animate-pulse" />
             <span className="text-xs font-bold text-indigo-500 uppercase tracking-widest">AI Intelligence</span>
           </div>
-          <h1 className="text-2xl font-headline font-bold text-gray-900 dark:text-white">AI Financial Assistant</h1>
+          <h1 className="text-xl md:text-2xl font-headline font-bold text-gray-900 dark:text-white">AI Financial Assistant</h1>
         </div>
         <div className="flex items-center gap-3">
           <div className="px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800/50 rounded-full flex items-center gap-2">

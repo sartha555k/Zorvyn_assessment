@@ -177,12 +177,12 @@ export function AdminDashboard() {
   const sortedTxs = [...transactions].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
-    <section className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
+    <section className="p-2 md:p-8 max-w-7xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-4">
           <div>
-            <h1 className="text-2xl font-headline font-bold text-white">Admin Dashboard</h1>
+            <h1 className="text-xl md:text-2xl font-headline font-bold text-white">Admin Dashboard</h1>
             <p className="text-sm text-slate-500">Manage transactions and system data</p>
           </div>
           <Badge color="#5bb1ff">
@@ -209,7 +209,7 @@ export function AdminDashboard() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
           { label: 'Total Transactions', value: transactions.length.toString(), color: '#5bb1ff' },
           { label: 'Total Income', value: formatCurrency(totalIncome), color: '#00fd87' },
@@ -227,30 +227,41 @@ export function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6">
           <h2 className="font-headline font-bold text-white mb-4">Monthly Summary</h2>
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={monthlyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="month" stroke="#75757c" fontSize={11} fontFamily="DM Mono" />
-              <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-              <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
-              <Bar dataKey="income" fill="#00fd87" name="Income" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="expense" fill="#ff706f" name="Expense" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div className="h-64 md:h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={monthlyData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                <XAxis
+                  dataKey="month"
+                  stroke="#75757c"
+                  fontSize={11}
+                  fontFamily="DM Mono"
+                  interval="preserveStartEnd"
+                  minTickGap={18}
+                />
+                <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+                <Bar dataKey="income" fill="#00fd87" name="Income" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="expense" fill="#ff706f" name="Expense" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </Card>
 
         <Card className="p-6">
           <h2 className="font-headline font-bold text-white mb-4">Category Distribution</h2>
-          <ResponsiveContainer width="100%" height={280}>
-            <PieChart>
-              <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={90} paddingAngle={2} dataKey="value">
-                {pieData.map(entry => (
-                  <Cell key={entry.name} fill={CATEGORY_COLORS[entry.name as Category] || '#6b7280'} />
-                ))}
-              </Pie>
-              <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
-            </PieChart>
-          </ResponsiveContainer>
+          <div className="h-64 md:h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={pieData} cx="50%" cy="50%" innerRadius={55} outerRadius={90} paddingAngle={2} dataKey="value">
+                  {pieData.map(entry => (
+                    <Cell key={entry.name} fill={CATEGORY_COLORS[entry.name as Category] || '#6b7280'} />
+                  ))}
+                </Pie>
+                <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
         </Card>
       </div>
 
@@ -270,7 +281,7 @@ export function AdminDashboard() {
           <h2 className="font-headline font-bold text-white">All Transactions</h2>
           <span className="text-xs font-mono text-slate-400">{transactions.length} total</span>
         </div>
-        <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+        <div className="w-full overflow-x-auto max-h-[500px] overflow-y-auto">
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-[#181920] z-10">
               <tr className="border-b border-white/5">
@@ -350,9 +361,9 @@ export function AdminDashboard() {
 
       {/* Drawer */}
       {drawerOpen && (
-        <div className="fixed inset-0 z-[100] flex justify-end">
+        <div className="fixed inset-0 z-[100] flex items-end justify-end md:items-start">
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
-          <div className="relative w-full max-w-md bg-[#121319] border-l border-white/10 h-full overflow-y-auto animate-slide-in-right">
+          <div className="relative w-screen max-w-none bg-[#121319] border-t border-white/10 rounded-t-2xl md:rounded-none md:w-full md:max-w-md md:border-l md:border-t-0 h-[90vh] md:h-full overflow-y-auto animate-modal-in md:animate-slide-in-right">
             <div className="flex items-center justify-between p-6 border-b border-white/5">
               <h2 className="text-lg font-headline font-bold text-white">{editingTx ? 'Edit Transaction' : 'Add Transaction'}</h2>
               <button onClick={() => setDrawerOpen(false)} className="p-1.5 rounded-lg hover:bg-white/5 text-slate-400"><X size={18} /></button>

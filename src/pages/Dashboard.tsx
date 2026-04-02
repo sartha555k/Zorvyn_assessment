@@ -116,11 +116,11 @@ export function Dashboard() {
   ];
 
   return (
-    <section className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
+    <section className="p-2 md:p-8 max-w-7xl mx-auto space-y-8">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-2xl md:text-4xl font-headline font-black tracking-tight text-white mb-1">
+          <h1 className="text-xl md:text-4xl font-headline font-black tracking-tight text-white mb-1">
             Pulse AI <span className="text-[#a4ffb9]">Insights</span>
           </h1>
           <p className="text-slate-500 text-sm">Deep-frequency analysis for your finances</p>
@@ -146,7 +146,7 @@ export function Dashboard() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {summaryCards.map((card) => {
           const Icon = card.icon;
           return (
@@ -201,37 +201,47 @@ export function Dashboard() {
               </span>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={280}>
-            <AreaChart data={cashFlowData}>
-              <defs>
-                <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#10b981" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient id="expenseGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#f43f5e" stopOpacity={0.2} />
-                  <stop offset="100%" stopColor="#f43f5e" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
-              <XAxis dataKey="month" stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={11} fontFamily="DM Mono" />
-              <YAxis stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: chartTheme.tooltipBg,
-                  border: `1px solid ${chartTheme.tooltipBorder}`,
-                  borderRadius: '12px',
-                  color: chartTheme.tooltipText,
-                  fontFamily: 'DM Mono',
-                  fontSize: '12px',
-                }}
-                itemStyle={{ color: chartTheme.tooltipText }}
-                formatter={(value: any) => formatCurrency(Number(value || 0))}
-              />
-              <Area type="monotone" dataKey="income" stroke="#10b981" strokeWidth={2} fill="url(#incomeGrad)" />
-              <Area type="monotone" dataKey="expense" stroke="#f43f5e" strokeWidth={2} fill="url(#expenseGrad)" />
-            </AreaChart>
-          </ResponsiveContainer>
+          <div className="h-64 md:h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={cashFlowData}>
+                <defs>
+                  <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#10b981" stopOpacity={0.3} />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="expenseGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#f43f5e" stopOpacity={0.2} />
+                    <stop offset="100%" stopColor="#f43f5e" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
+                <XAxis
+                  dataKey="month"
+                  stroke={chartTheme.axisColor}
+                  tick={{ fill: chartTheme.textColor }}
+                  fontSize={11}
+                  fontFamily="DM Mono"
+                  interval="preserveStartEnd"
+                  minTickGap={18}
+                />
+                <YAxis stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: chartTheme.tooltipBg,
+                    border: `1px solid ${chartTheme.tooltipBorder}`,
+                    borderRadius: '12px',
+                    color: chartTheme.tooltipText,
+                    fontFamily: 'DM Mono',
+                    fontSize: '12px',
+                  }}
+                  itemStyle={{ color: chartTheme.tooltipText }}
+                  formatter={(value: any) => formatCurrency(Number(value || 0))}
+                />
+                <Area type="monotone" dataKey="income" stroke="#10b981" strokeWidth={2} fill="url(#incomeGrad)" />
+                <Area type="monotone" dataKey="expense" stroke="#f43f5e" strokeWidth={2} fill="url(#expenseGrad)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </Card>
 
         {/* Spending Breakdown */}
@@ -239,37 +249,39 @@ export function Dashboard() {
           <h2 className="font-headline font-bold text-gray-900 dark:text-slate-100 mb-6">Spending Breakdown</h2>
           {pieData.length > 0 ? (
             <>
-              <ResponsiveContainer width="100%" height={200}>
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={50}
-                    outerRadius={80}
-                    paddingAngle={3}
-                    dataKey="value"
-                  >
-                    {pieData.map((entry) => (
-                      <Cell
-                        key={entry.name}
-                        fill={CATEGORY_COLORS[entry.name as Category] || '#6b7280'}
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: chartTheme.tooltipBg,
-                      border: `1px solid ${chartTheme.tooltipBorder}`,
-                      borderRadius: '12px',
-                      color: chartTheme.tooltipText,
-                      fontSize: '12px',
-                    }}
-                    itemStyle={{ color: chartTheme.tooltipText }}
-                    formatter={(value: any) => formatCurrency(Number(value || 0))}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+              <div className="h-56 md:h-72">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={50}
+                      outerRadius={80}
+                      paddingAngle={3}
+                      dataKey="value"
+                    >
+                      {pieData.map((entry) => (
+                        <Cell
+                          key={entry.name}
+                          fill={CATEGORY_COLORS[entry.name as Category] || '#6b7280'}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: chartTheme.tooltipBg,
+                        border: `1px solid ${chartTheme.tooltipBorder}`,
+                        borderRadius: '12px',
+                        color: chartTheme.tooltipText,
+                        fontSize: '12px',
+                      }}
+                      itemStyle={{ color: chartTheme.tooltipText }}
+                      formatter={(value: any) => formatCurrency(Number(value || 0))}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
               <div className="space-y-2 mt-4">
                 {pieData.map((entry) => (
                   <div key={entry.name} className="flex items-center justify-between text-xs">

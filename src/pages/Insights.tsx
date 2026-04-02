@@ -65,10 +65,10 @@ export function Insights() {
     : 0;
 
   return (
-    <section className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
+    <section className="p-2 md:p-8 max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl md:text-4xl font-headline font-black tracking-tight text-white mb-1">
+        <h1 className="text-xl md:text-4xl font-headline font-black tracking-tight text-white mb-1">
           AI <span className="text-[#a4ffb9]">Insights</span>
         </h1>
         <p className="text-slate-500 text-sm">Understand your financial patterns</p>
@@ -164,7 +164,7 @@ export function Insights() {
           )}
         >
           {/* Deep Dive Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             {[
               { label: 'Total Flow', value: formatCurrency(deepDive.totalFlow), color: '#5bb1ff' },
               { label: 'Net Savings', value: formatCurrency(deepDive.netSavings), color: deepDive.netSavings >= 0 ? '#00fd87' : '#ff706f' },
@@ -181,21 +181,30 @@ export function Insights() {
           {/* Flow Chart */}
           <Card className="p-6 mb-6">
             <h3 className="font-headline font-bold text-white mb-4">Flow Analysis</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <ComposedChart data={deepDive.dailyFlow}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="day" stroke="#75757c" fontSize={10} fontFamily="DM Mono" />
-                <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-                <Tooltip
-                  contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px', fontFamily: 'DM Mono' }}
-                  formatter={(value: any) => formatCurrency(Number(value || 0))}
-                />
-                <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'DM Mono' }} />
-                <Bar dataKey="expense" fill="#ff706f" opacity={0.6} name="Expense" radius={[2, 2, 0, 0]} />
-                <Bar dataKey="income" fill="#00fd87" opacity={0.6} name="Income" radius={[2, 2, 0, 0]} />
-                <Line type="monotone" dataKey="cumulative" stroke="#5bb1ff" strokeWidth={2} dot={false} name="Cumulative" />
-              </ComposedChart>
-            </ResponsiveContainer>
+            <div className="h-64 md:h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={deepDive.dailyFlow}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis
+                    dataKey="day"
+                    stroke="#75757c"
+                    fontSize={10}
+                    fontFamily="DM Mono"
+                    interval="preserveStartEnd"
+                    minTickGap={12}
+                  />
+                  <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                  <Tooltip
+                    contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px', fontFamily: 'DM Mono' }}
+                    formatter={(value: any) => formatCurrency(Number(value || 0))}
+                  />
+                  <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'DM Mono' }} />
+                  <Bar dataKey="expense" fill="#ff706f" opacity={0.6} name="Expense" radius={[2, 2, 0, 0]} />
+                  <Bar dataKey="income" fill="#00fd87" opacity={0.6} name="Income" radius={[2, 2, 0, 0]} />
+                  <Line type="monotone" dataKey="cumulative" stroke="#5bb1ff" strokeWidth={2} dot={false} name="Cumulative" />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
           </Card>
 
           {/* Category Budget Table */}
@@ -203,7 +212,7 @@ export function Insights() {
             <div className="px-6 py-4 border-b border-white/5">
               <h3 className="font-headline font-bold text-white">Category Budget Tracker</h3>
             </div>
-            <div className="overflow-x-auto">
+            <div className="w-full overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/5">
@@ -319,7 +328,7 @@ export function Insights() {
       {/* MoM Change Modal */}
       <Modal isOpen={momModal} onClose={() => setMomModal(false)} title="Month-over-Month Comparison" titleIcon={<TrendingUp size={18} className="text-[#00fd87]" />}>
         <div className="p-6 space-y-6">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-4 rounded-xl bg-white/[0.02] text-center">
               <p className="text-[10px] font-label uppercase tracking-widest text-slate-500 mb-2">This Month</p>
               <p className="text-2xl font-mono font-bold text-white">{formatCurrency(momChange.current)}</p>
@@ -342,16 +351,28 @@ export function Insights() {
           </div>
           <div>
             <h4 className="text-xs font-label uppercase tracking-widest text-slate-500 mb-4">Category Comparison</h4>
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={momChange.categoryBreakdown}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="category" stroke="#75757c" fontSize={9} fontFamily="DM Mono" angle={-15} textAnchor="end" height={50} />
-                <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-                <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
-                <Bar dataKey="current" fill="#5bb1ff" name="Current" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="previous" fill="#47474e" name="Previous" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="h-64 md:h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={momChange.categoryBreakdown}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis
+                    dataKey="category"
+                    stroke="#75757c"
+                    fontSize={9}
+                    fontFamily="DM Mono"
+                    angle={-15}
+                    textAnchor="end"
+                    height={50}
+                    interval="preserveStartEnd"
+                    minTickGap={10}
+                  />
+                  <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                  <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+                  <Bar dataKey="current" fill="#5bb1ff" name="Current" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="previous" fill="#47474e" name="Previous" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
           <p className="text-sm text-slate-400">
             You spent {momChange.changePercent >= 0 ? `${momChange.changePercent}% more` : `${Math.abs(momChange.changePercent)}% less`} this month.
@@ -374,7 +395,7 @@ export function Insights() {
               <p className="text-sm text-slate-500">Top spending this month</p>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               { label: 'Total Spend', value: formatCurrency(topCategory.totalSpend) },
               { label: 'Transactions', value: topCategory.count.toString() },
@@ -388,15 +409,24 @@ export function Insights() {
           </div>
           <div>
             <h4 className="text-xs font-label uppercase tracking-widest text-slate-500 mb-4">6-Month Trend</h4>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={topCategory.monthlyTrend}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="month" stroke="#75757c" fontSize={10} fontFamily="DM Mono" />
-                <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-                <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
-                <Bar dataKey="amount" fill={CATEGORY_COLORS[topCategory.name as Category] || '#5bb1ff'} radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="h-56 md:h-72">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={topCategory.monthlyTrend}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <XAxis
+                    dataKey="month"
+                    stroke="#75757c"
+                    fontSize={10}
+                    fontFamily="DM Mono"
+                    interval="preserveStartEnd"
+                    minTickGap={12}
+                  />
+                  <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                  <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+                  <Bar dataKey="amount" fill={CATEGORY_COLORS[topCategory.name as Category] || '#5bb1ff'} radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </Modal>

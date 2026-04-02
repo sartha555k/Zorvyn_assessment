@@ -1,4 +1,4 @@
-import { Search, Bell, Sun, Moon } from 'lucide-react';
+import { Search, Bell, Sun, Moon, Menu } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useFilterStore } from '../../store/useFilterStore';
 import { useThemeStore } from '../../store/useThemeStore';
@@ -12,7 +12,7 @@ const pageTitles: Record<string, string> = {
   '/admin': 'Admin Dashboard',
 };
 
-export function Topbar() {
+export function Topbar({ onOpenMobileNav }: { onOpenMobileNav?: () => void }) {
   const { currentUser, role, setRole, addToast } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
   const { searchQuery, setSearch } = useFilterStore();
@@ -21,9 +21,18 @@ export function Topbar() {
   const pageTitle = pageTitles[location.pathname] || 'Dashboard';
 
   return (
-    <header className="h-16 sticky top-0 z-40 bg-white/80 dark:bg-[#0f1117]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 flex justify-between items-center px-4 md:px-6 w-full transition-colors">
-      <div className="flex items-center gap-4">
-        <h1 className="text-sm md:text-base font-headline font-bold text-gray-900 dark:text-white hidden sm:block">
+    <header className="h-16 sticky top-0 z-40 bg-white/80 dark:bg-[#0f1117]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 flex justify-between items-center px-3 md:px-6 w-full transition-colors">
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => onOpenMobileNav?.()}
+          className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+          aria-label="Open navigation menu"
+        >
+          <Menu size={18} className="text-gray-700 dark:text-slate-200" />
+        </button>
+
+        <h1 className="text-xs sm:text-sm md:text-base font-headline font-bold text-gray-900 dark:text-white hidden sm:block">
           {pageTitle}
         </h1>
       </div>

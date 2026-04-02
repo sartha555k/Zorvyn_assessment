@@ -45,7 +45,7 @@ export function ProfilePage() {
   };
 
   return (
-    <section className="p-4 md:p-8 max-w-7xl mx-auto space-y-8 animate-fade-in-up">
+    <section className="p-2 md:p-8 max-w-7xl mx-auto space-y-8 animate-fade-in-up">
       <div className="flex flex-col md:flex-row gap-6 lg:gap-8">
         
         {/* LEFT COLUMN - Sticky Profile Card */}
@@ -177,7 +177,7 @@ export function ProfilePage() {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4 animate-fade-in">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-4 animate-fade-in">
                 <div>
                   <p className="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-widest font-label mb-1">Full Name</p>
                   <p className="text-gray-900 dark:text-slate-100 font-medium">{currentUser.name}</p>
@@ -216,7 +216,7 @@ export function ProfilePage() {
             <div className="space-y-6 divide-y divide-gray-100 dark:divide-slate-700">
               
               {/* Theme Toggle Row */}
-              <div className="py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 first:pt-0">
+              <div className="py-4 flex flex-col md:flex-row md:justify-between md:items-center gap-4 first:pt-0">
                 <div>
                   <p className="text-gray-900 dark:text-slate-100 font-medium mb-1">Color Theme</p>
                   <p className="text-sm text-gray-500 dark:text-slate-400">Choose your preferred interface theme</p>
@@ -244,7 +244,7 @@ export function ProfilePage() {
               </div>
 
               {/* Default Month View */}
-              <div className="py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+              <div className="py-4 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <div>
                   <p className="text-gray-900 dark:text-slate-100 font-medium mb-1">Default Month View</p>
                   <p className="text-sm text-gray-500 dark:text-slate-400">What time range to show by default</p>
@@ -267,7 +267,7 @@ export function ProfilePage() {
               </div>
 
               {/* Compact Mode */}
-              <div className="py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+              <div className="py-4 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <div>
                   <p className="text-gray-900 dark:text-slate-100 font-medium mb-1">Compact Table View</p>
                   <p className="text-sm text-gray-500 dark:text-slate-400">Show more rows with reduced padding</p>
@@ -343,7 +343,7 @@ export function ProfilePage() {
             </div>
             
             <div className="space-y-6 divide-y divide-gray-100 dark:divide-slate-700">
-              <div className="py-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 first:pt-0">
+              <div className="py-4 flex flex-col md:flex-row md:justify-between md:items-center gap-4 first:pt-0">
                 <div>
                   <p className="text-gray-900 dark:text-slate-100 font-medium mb-1">Export My Data</p>
                   <p className="text-sm text-gray-500 dark:text-slate-400">Download all your transaction data</p>
@@ -355,7 +355,7 @@ export function ProfilePage() {
               </div>
 
               <div className="py-4 flex flex-col gap-4">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                   <div>
                     <p className="text-gray-900 dark:text-slate-100 font-medium mb-1">Reset Dashboard</p>
                     <p className="text-sm text-gray-500 dark:text-slate-400">Reset to original demo data (cannot be undone)</p>
@@ -364,7 +364,7 @@ export function ProfilePage() {
                 </div>
                 
                 <div className={clsx("overflow-hidden transition-all duration-300", showResetConfirm ? "max-h-80 opacity-100" : "max-h-0 opacity-0")}>
-                  <div className="p-4 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 rounded-xl flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                  <div className="p-4 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 rounded-xl flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                     <p className="text-sm text-rose-700 dark:text-rose-300 font-medium">Are you sure? This will delete all your transactions and restore demo data.</p>
                     <div className="flex gap-2 shrink-0">
                       <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" onClick={() => setShowResetConfirm(false)}>Cancel</Button>
