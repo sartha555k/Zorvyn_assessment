@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   title?: string;
-  titleIcon?: string;
+  titleIcon?: ReactNode;
   width?: string;
 }
 

@@ -232,7 +232,7 @@ export function AdminDashboard() {
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
               <XAxis dataKey="month" stroke="#75757c" fontSize={11} fontFamily="DM Mono" />
               <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-              <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: number) => formatCurrency(value)} />
+              <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
               <Bar dataKey="income" fill="#00fd87" name="Income" radius={[4, 4, 0, 0]} />
               <Bar dataKey="expense" fill="#ff706f" name="Expense" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -248,7 +248,7 @@ export function AdminDashboard() {
                   <Cell key={entry.name} fill={CATEGORY_COLORS[entry.name as Category] || '#6b7280'} />
                 ))}
               </Pie>
-              <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: number) => formatCurrency(value)} />
+              <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
             </PieChart>
           </ResponsiveContainer>
         </Card>
@@ -335,7 +335,7 @@ export function AdminDashboard() {
       </Card>
 
       {/* Import Modal */}
-      <Modal isOpen={importModalOpen} onClose={() => setImportModalOpen(false)} title="Import Transactions" titleIcon="📥">
+      <Modal isOpen={importModalOpen} onClose={() => setImportModalOpen(false)} title="Import Transactions" titleIcon={<Download size={18} />}>
         <div className="p-6 space-y-4">
           <p className="text-sm text-slate-400">Paste a JSON array of transactions below. Each object should have: description, date, amount, category, type, merchant, paymentMethod.</p>
           <textarea

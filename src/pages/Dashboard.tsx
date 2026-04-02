@@ -4,7 +4,7 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend,
 } from 'recharts';
-import { TrendingUp, TrendingDown, Wallet, ArrowDownRight, ArrowUpRight, PiggyBank, ExternalLink } from 'lucide-react';
+import { TrendingUp, TrendingDown, Wallet, ArrowDownRight, ArrowUpRight, PiggyBank, ExternalLink, Flame, Trophy } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
 import { useTransactionStore } from '../store/useTransactionStore';
@@ -222,7 +222,7 @@ export function Dashboard() {
                   fontSize: '12px',
                   fontFamily: 'DM Mono',
                 }}
-                formatter={(value: number) => formatCurrency(value)}
+                formatter={(value: any) => formatCurrency(Number(value || 0))}
               />
               <Area type="monotone" dataKey="income" stroke="#00fd87" strokeWidth={2} fill="url(#incomeGrad)" />
               <Area type="monotone" dataKey="expense" stroke="#ff706f" strokeWidth={2} fill="url(#expenseGrad)" />
@@ -260,7 +260,7 @@ export function Dashboard() {
                       borderRadius: '12px',
                       fontSize: '12px',
                     }}
-                    formatter={(value: number) => formatCurrency(value)}
+                    formatter={(value: any) => formatCurrency(Number(value || 0))}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -298,7 +298,7 @@ export function Dashboard() {
             <div className="p-2 rounded-xl bg-[#ff706f]/10">
               <TrendingUp size={20} className="text-[#ff706f]" />
             </div>
-            <span className="text-[10px] font-mono text-slate-500 bg-white/5 px-2 py-1 rounded">🔥 Hot</span>
+            <span className="text-[10px] font-mono text-slate-500 bg-white/5 px-2 py-1 rounded flex items-center gap-1"><Flame size={10} /> Hot</span>
           </div>
           <h3 className="text-slate-400 text-[13px] font-medium mb-1">Biggest Expense</h3>
           <p className="text-2xl font-mono text-white mb-1">{biggestExpense.category}</p>
@@ -322,12 +322,12 @@ export function Dashboard() {
               )}
             </div>
             <span className={clsx(
-              'text-[10px] font-mono px-2 py-1 rounded',
+              'text-[10px] font-mono px-2 py-1 rounded flex items-center gap-1',
               momChange.trend === 'up'
                 ? 'text-[#ff706f] bg-[#ff706f]/10'
                 : 'text-[#00fd87] bg-[#00fd87]/10'
             )}>
-              📈 {momChange.trend === 'up' ? 'Watch' : 'Good'}
+              <TrendingUp size={10} /> {momChange.trend === 'up' ? 'Watch' : 'Good'}
             </span>
           </div>
           <h3 className="text-slate-400 text-[13px] font-medium mb-1">MoM Change</h3>
@@ -349,7 +349,7 @@ export function Dashboard() {
             <div className="p-2 rounded-xl bg-[#5bb1ff]/10">
               <TrendingUp size={20} className="text-[#5bb1ff]" />
             </div>
-            <span className="text-[10px] font-mono text-[#5bb1ff] bg-[#5bb1ff]/10 px-2 py-1 rounded">🏆 #1</span>
+            <span className="text-[10px] font-mono text-[#5bb1ff] bg-[#5bb1ff]/10 px-2 py-1 rounded flex items-center gap-1"><Trophy size={10} /> #1</span>
           </div>
           <h3 className="text-slate-400 text-[13px] font-medium mb-1">Top Category</h3>
           <p className="text-2xl font-mono text-white mb-1">{topCategory.name}</p>
