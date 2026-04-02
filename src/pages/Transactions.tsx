@@ -158,7 +158,7 @@ export function Transactions() {
               <Download size={14} /> Export
             </Button>
             {showExportMenu && (
-              <div className="absolute right-0 top-full mt-1 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl z-50 min-w-[160px]">
+              <div className="absolute right-0 top-full mt-1 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden shadow-md dark:shadow-2xl z-50 min-w-[160px]">
                 <button className="w-full px-4 py-2.5 text-xs text-left hover:bg-gray-50 dark:hover:bg-white/5 text-gray-900 dark:text-white" onClick={() => { exportCSV(filteredTransactions, 'transactions'); addToast('success', 'CSV exported'); setShowExportMenu(false); }}>
                   Export CSV
                 </button>
@@ -180,13 +180,13 @@ export function Transactions() {
       <div className="flex flex-col lg:flex-row gap-3 items-start lg:items-center">
         {/* Search */}
         <div className="relative w-full lg:w-64">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-slate-500" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
             placeholder="Search transactions..."
-            className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[#121319]/40 border border-gray-200 dark:border-white/5 rounded-xl text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-emerald-400 placeholder:text-gray-400 dark:placeholder:text-slate-600 transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[#121319]/40 border border-gray-200 dark:border-white/5 rounded-xl text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-emerald-400 placeholder:text-gray-500 dark:placeholder:text-slate-600 transition-colors"
           />
         </div>
 
@@ -203,7 +203,7 @@ export function Transactions() {
               )}
             </button>
             {showCatFilter && (
-              <div className="absolute left-0 top-full mt-1 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl z-50 max-h-64 overflow-y-auto w-52">
+              <div className="absolute left-0 top-full mt-1 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden shadow-md dark:shadow-2xl z-50 max-h-64 overflow-y-auto w-52">
                 {CATEGORIES.map(cat => (
                   <label key={cat} className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer text-xs text-gray-700 dark:text-slate-300">
                     <input
@@ -361,10 +361,10 @@ export function Transactions() {
                           </div>
                         ) : (
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => openEdit(tx)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors">
+                            <button onClick={() => openEdit(tx)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors">
                               <Edit2 size={14} />
                             </button>
-                            <button onClick={() => setDeleteConfirmId(tx.id)} className="p-1.5 rounded-lg hover:bg-rose-50 text-gray-400 hover:text-rose-500 dark:hover:bg-[#ff706f]/10 dark:text-slate-400 dark:hover:text-[#ff706f] transition-colors">
+                            <button onClick={() => setDeleteConfirmId(tx.id)} className="p-1.5 rounded-lg hover:bg-rose-50 text-gray-600 hover:text-rose-500 dark:hover:bg-[#ff706f]/10 dark:text-slate-400 dark:hover:text-[#ff706f] transition-colors">
                               <Trash2 size={14} />
                             </button>
                           </div>
@@ -415,7 +415,7 @@ export function Transactions() {
               <h2 className="text-lg font-headline font-bold text-gray-900 dark:text-white">
                 {editingTx ? 'Edit Transaction' : 'Add Transaction'}
               </h2>
-              <button onClick={() => setDrawerOpen(false)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white">
+              <button onClick={() => setDrawerOpen(false)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white">
                 <X size={18} />
               </button>
             </div>

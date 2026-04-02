@@ -11,11 +11,13 @@ import { Button } from '../components/ui/Button';
 import { Modal } from '../components/ui/Modal';
 import { useTransactionStore } from '../store/useTransactionStore';
 import { useFilterStore } from '../store/useFilterStore';
+import { useThemeStore } from '../store/useThemeStore';
 import { useInsights } from '../hooks/useInsights';
 import { formatCurrency } from '../utils/formatCurrency';
 import { CATEGORY_COLORS, Category } from '../types';
 import { format, subMonths, parseISO } from 'date-fns';
 import clsx from 'clsx';
+import { useChartTheme } from '../hooks/useChartTheme';
 
 const months = Array.from({ length: 6 }, (_, i) => {
   const d = subMonths(new Date(2025, 5, 1), 5 - i);
@@ -23,6 +25,8 @@ const months = Array.from({ length: 6 }, (_, i) => {
 });
 
 export function Insights() {
+  const chartTheme = useChartTheme();
+  const { theme } = useThemeStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const { transactions } = useTransactionStore();
   const { activeMonth, setActiveMonth } = useFilterStore();
@@ -68,10 +72,10 @@ export function Insights() {
     <section className="p-2 md:p-8 max-w-7xl mx-auto space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-xl md:text-4xl font-headline font-black tracking-tight text-white mb-1">
-          AI <span className="text-[#a4ffb9]">Insights</span>
+        <h1 className="text-xl md:text-4xl font-headline font-black tracking-tight text-gray-900 dark:text-white mb-1">
+          AI <span className="text-emerald-600 dark:text-[#a4ffb9]">Insights</span>
         </h1>
-        <p className="text-slate-500 text-sm">Understand your financial patterns</p>
+        <p className="text-gray-600 dark:text-slate-500 text-sm">Understand your financial patterns</p>
       </div>
 
       {/* Month Selector */}
@@ -83,8 +87,8 @@ export function Insights() {
             className={clsx(
               'px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all',
               activeMonth === m.value
-                ? 'bg-[#00fd87]/15 text-[#00fd87] border border-[#00fd87]/40'
-                : 'bg-[#1e1f26] text-slate-400 hover:text-white border border-transparent'
+                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200 dark:bg-[#00fd87]/15 dark:text-[#00fd87] dark:border-[#00fd87]/40'
+                : 'bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 hover:text-gray-900 dark:bg-[#1e1f26] dark:text-slate-400 dark:hover:text-white dark:border-transparent'
             )}
           >
             {m.label}
@@ -100,11 +104,11 @@ export function Insights() {
             <div className="p-2 rounded-xl bg-[#ff706f]/10">
               <TrendingUp size={20} className="text-[#ff706f]" />
             </div>
-            <span className="text-[10px] font-mono text-slate-500 bg-white/5 px-2 py-1 rounded flex items-center gap-1"><Flame size={10} /> Hot</span>
+            <span className="text-[10px] font-mono text-gray-600 bg-gray-100 dark:text-slate-500 dark:bg-white/5 px-2 py-1 rounded flex items-center gap-1"><Flame size={10} /> Hot</span>
           </div>
-          <h3 className="text-slate-400 text-[13px] font-medium mb-1">Biggest Expense</h3>
-          <p className="text-2xl font-mono text-white mb-1">{biggestExpense.category}</p>
-          <p className="text-sm text-slate-500">{formatCurrency(biggestExpense.totalAmount)}</p>
+          <h3 className="text-gray-600 dark:text-slate-400 text-[13px] font-medium mb-1">Biggest Expense</h3>
+          <p className="text-2xl font-mono text-gray-900 dark:text-white mb-1">{biggestExpense.category}</p>
+          <p className="text-sm text-gray-600 dark:text-slate-500">{formatCurrency(biggestExpense.totalAmount)}</p>
           <p className="text-xs text-[#ff706f] mt-4 flex items-center gap-1">View Details <ExternalLink size={12} /></p>
         </Card>
 
@@ -116,9 +120,9 @@ export function Insights() {
             </div>
             <span className="text-[10px] font-mono text-[#00fd87] bg-[#00fd87]/10 px-2 py-1 rounded flex items-center gap-1"><TrendingUp size={10} /> MoM</span>
           </div>
-          <h3 className="text-slate-400 text-[13px] font-medium mb-1">MoM Change</h3>
-          <p className="text-2xl font-mono text-white mb-1">{momChange.changePercent >= 0 ? '+' : ''}{momChange.changePercent}%</p>
-          <p className="text-sm text-slate-500">vs last month</p>
+          <h3 className="text-gray-600 dark:text-slate-400 text-[13px] font-medium mb-1">MoM Change</h3>
+          <p className="text-2xl font-mono text-gray-900 dark:text-white mb-1">{momChange.changePercent >= 0 ? '+' : ''}{momChange.changePercent}%</p>
+          <p className="text-sm text-gray-600 dark:text-slate-500">vs last month</p>
           <p className="text-xs text-[#00fd87] mt-4 flex items-center gap-1">View Details <ExternalLink size={12} /></p>
         </Card>
 
@@ -130,9 +134,9 @@ export function Insights() {
             </div>
             <span className="text-[10px] font-mono text-[#5bb1ff] bg-[#5bb1ff]/10 px-2 py-1 rounded flex items-center gap-1"><Trophy size={10} /> #1</span>
           </div>
-          <h3 className="text-slate-400 text-[13px] font-medium mb-1">Top Category</h3>
-          <p className="text-2xl font-mono text-white mb-1">{topCategory.name}</p>
-          <p className="text-sm text-slate-500">{topCategory.count} transactions</p>
+          <h3 className="text-gray-600 dark:text-slate-400 text-[13px] font-medium mb-1">Top Category</h3>
+          <p className="text-2xl font-mono text-gray-900 dark:text-white mb-1">{topCategory.name}</p>
+          <p className="text-sm text-gray-600 dark:text-slate-500">{topCategory.count} transactions</p>
           <p className="text-xs text-[#5bb1ff] mt-4 flex items-center gap-1">View Details <ExternalLink size={12} /></p>
         </Card>
       </div>
@@ -142,9 +146,10 @@ export function Insights() {
         <button
           onClick={() => setDeepDiveOpen(!deepDiveOpen)}
           className={clsx(
-            'w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all',
-            'bg-[#181920]/70 border border-white/5 hover:border-[#00fd87]/20',
-            deepDiveOpen && 'border-[#00fd87]/30'
+            'w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all shadow-sm',
+            'bg-white border border-gray-200 hover:border-emerald-300 hover:bg-gray-50',
+            'dark:bg-[#181920]/70 dark:border-white/5 dark:hover:border-[#00fd87]/20 dark:hover:bg-transparent',
+            deepDiveOpen && 'border-emerald-400 dark:border-[#00fd87]/30'
           )}
         >
           <div className="flex items-center gap-3">
@@ -152,9 +157,9 @@ export function Insights() {
               <Sparkles size={20} className="text-[#a4ffb9]" />
               <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-[#00fd87] rounded-full animate-pulse" />
             </div>
-            <span className="font-headline font-bold text-white flex items-center gap-2"><Bot size={18} className="text-[#a4ffb9]" /> AI Deep Dive Analysis</span>
+            <span className="font-headline font-bold text-gray-900 dark:text-white flex items-center gap-2"><Bot size={18} className="text-emerald-600 dark:text-[#a4ffb9]" /> AI Deep Dive Analysis</span>
           </div>
-          {deepDiveOpen ? <ChevronUp size={20} className="text-slate-400" /> : <ChevronDown size={20} className="text-slate-400" />}
+          {deepDiveOpen ? <ChevronUp size={20} className="text-gray-600 dark:text-slate-400" /> : <ChevronDown size={20} className="text-gray-600 dark:text-slate-400" />}
         </button>
 
         <div
@@ -172,7 +177,7 @@ export function Insights() {
               { label: 'Projected Balance', value: formatCurrency(deepDive.projectedBalance), color: deepDive.projectedBalance >= 0 ? '#00fd87' : '#ff706f' },
             ].map(stat => (
               <Card key={stat.label} className="p-4">
-                <p className="text-[10px] font-label uppercase tracking-widest text-slate-500 mb-1">{stat.label}</p>
+                <p className="text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500 mb-1">{stat.label}</p>
                 <p className="text-xl font-mono font-medium" style={{ color: stat.color }}>{stat.value}</p>
               </Card>
             ))}
@@ -180,25 +185,27 @@ export function Insights() {
 
           {/* Flow Chart */}
           <Card className="p-6 mb-6">
-            <h3 className="font-headline font-bold text-white mb-4">Flow Analysis</h3>
+            <h3 className="font-headline font-bold text-gray-900 dark:text-white mb-4">Flow Analysis</h3>
             <div className="h-64 md:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={deepDive.dailyFlow}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
                   <XAxis
                     dataKey="day"
-                    stroke="#75757c"
+                    stroke={chartTheme.axisColor}
+                    tick={{ fill: chartTheme.textColor }}
                     fontSize={10}
                     fontFamily="DM Mono"
                     interval="preserveStartEnd"
                     minTickGap={12}
                   />
-                  <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                  <YAxis stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
                   <Tooltip
-                    contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px', fontFamily: 'DM Mono' }}
+                    contentStyle={chartTheme.tooltipContentStyleCompact}
+                    itemStyle={{ color: chartTheme.tooltipText }}
                     formatter={(value: any) => formatCurrency(Number(value || 0))}
                   />
-                  <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'DM Mono' }} />
+                  <Legend wrapperStyle={{ fontSize: '11px', fontFamily: 'DM Mono', color: chartTheme.legendColor }} />
                   <Bar dataKey="expense" fill="#ff706f" opacity={0.6} name="Expense" radius={[2, 2, 0, 0]} />
                   <Bar dataKey="income" fill="#00fd87" opacity={0.6} name="Income" radius={[2, 2, 0, 0]} />
                   <Line type="monotone" dataKey="cumulative" stroke="#5bb1ff" strokeWidth={2} dot={false} name="Cumulative" />
@@ -209,47 +216,47 @@ export function Insights() {
 
           {/* Category Budget Table */}
           <Card className="overflow-hidden mb-6">
-            <div className="px-6 py-4 border-b border-white/5">
-              <h3 className="font-headline font-bold text-white">Category Budget Tracker</h3>
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-white/5">
+              <h3 className="font-headline font-bold text-gray-900 dark:text-white">Category Budget Tracker</h3>
             </div>
             <div className="w-full overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-white/5">
-                    <th className="px-6 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500">Category</th>
-                    <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-slate-500">Budget</th>
-                    <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-slate-500">Actual</th>
-                    <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-slate-500">Variance</th>
-                    <th className="px-4 py-3 text-center text-[10px] font-label uppercase tracking-widest text-slate-500">Status</th>
+                  <tr className="border-b border-gray-200 dark:border-white/5">
+                    <th className="px-6 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Category</th>
+                    <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Budget</th>
+                    <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Actual</th>
+                    <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Variance</th>
+                    <th className="px-4 py-3 text-center text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {deepDive.categoryBudgetMap.map(row => (
-                    <tr key={row.category} className="border-b border-white/[0.03] hover:bg-white/[0.02]">
+                    <tr key={row.category} className="border-b border-gray-100 dark:border-white/[0.03] hover:bg-gray-50 dark:hover:bg-white/[0.02]">
                       <td className="px-6 py-3 flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded" style={{ backgroundColor: CATEGORY_COLORS[row.category as Category] }} />
-                        <span className="text-white">{row.category}</span>
+                        <span className="text-gray-900 dark:text-white">{row.category}</span>
                       </td>
-                      <td className="px-4 py-3 text-right font-mono text-slate-400">
+                      <td className="px-4 py-3 text-right font-mono text-gray-600 dark:text-slate-400">
                         {budgetEditing === row.category ? (
                           <div className="flex items-center gap-1 justify-end">
                             <input
                               type="number"
                               value={budgetValue}
                               onChange={(e) => setBudgetValue(e.target.value)}
-                              className="w-20 bg-[#24252d] border border-white/10 rounded px-2 py-1 text-xs text-white text-right"
+                              className="w-20 bg-white border border-gray-200 rounded px-2 py-1 text-xs text-gray-900 text-right dark:bg-[#24252d] dark:border-white/10 dark:text-white"
                               autoFocus
                             />
-                            <button onClick={() => saveBudget(row.category)} className="text-[#00fd87] text-xs font-bold hover:bg-[#00fd87]/10 p-1 rounded transition-colors"><Check size={14} /></button>
+                            <button onClick={() => saveBudget(row.category)} className="text-emerald-700 text-xs font-bold hover:bg-emerald-50 dark:text-[#00fd87] dark:hover:bg-[#00fd87]/10 p-1 rounded transition-colors"><Check size={14} /></button>
                           </div>
                         ) : (
-                          <button onClick={() => { setBudgetEditing(row.category); setBudgetValue(row.budget.toString()); }} className="hover:text-white">
+                          <button onClick={() => { setBudgetEditing(row.category); setBudgetValue(row.budget.toString()); }} className="hover:text-gray-900 dark:hover:text-white">
                             {formatCurrency(row.budget)}
                           </button>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-right font-mono text-white">{formatCurrency(row.actual)}</td>
-                      <td className={clsx('px-4 py-3 text-right font-mono', row.variance >= 0 ? 'text-[#00fd87]' : 'text-[#ff706f]')}>
+                      <td className="px-4 py-3 text-right font-mono text-gray-900 dark:text-white">{formatCurrency(row.actual)}</td>
+                      <td className={clsx('px-4 py-3 text-right font-mono', row.variance >= 0 ? 'text-emerald-700 dark:text-[#00fd87]' : 'text-rose-600 dark:text-[#ff706f]')}>
                         {row.variance >= 0 ? '+' : ''}{formatCurrency(row.variance)}
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -270,13 +277,13 @@ export function Insights() {
           <Card className="p-6">
             <div className="flex items-center gap-2 mb-4">
               <Lightbulb size={18} className="text-[#f59e0b]" />
-              <h3 className="font-headline font-bold text-white">Key Observations</h3>
+              <h3 className="font-headline font-bold text-gray-900 dark:text-white">Key Observations</h3>
             </div>
             <div className="space-y-3">
               {deepDive.keyObservations.map((obs, i) => (
-                <div key={i} className="flex gap-3 p-3 rounded-xl bg-white/[0.02]">
-                  <span className="text-[#a4ffb9] font-mono text-xs shrink-0 mt-0.5">0{i + 1}</span>
-                  <p className="text-sm text-slate-300">{obs}</p>
+                <div key={i} className="flex gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100 dark:bg-white/[0.02] dark:border-transparent">
+                  <span className="text-emerald-600 dark:text-[#a4ffb9] font-mono text-xs shrink-0 mt-0.5">0{i + 1}</span>
+                  <p className="text-sm text-gray-700 dark:text-slate-300">{obs}</p>
                 </div>
               ))}
             </div>
@@ -292,32 +299,32 @@ export function Insights() {
           <div className="text-center">
             <p className="text-[#5bb1ff] font-headline font-bold text-xl mb-1">{biggestExpense.category}</p>
             <p className="text-4xl font-mono font-bold text-[#ff706f]">{formatCurrency(biggestExpense.totalAmount)}</p>
-            <p className="text-sm text-slate-400 mt-2">{biggestExpense.percentage}% of your total expenses</p>
+            <p className="text-sm text-gray-600 dark:text-slate-400 mt-2">{biggestExpense.percentage}% of your total expenses</p>
           </div>
-          <div className="h-3 bg-white/5 rounded-full overflow-hidden">
+          <div className="h-3 bg-gray-200 dark:bg-white/5 rounded-full overflow-hidden">
             <div className="h-full bg-gradient-to-r from-[#ff706f] to-[#ff706f]/50 rounded-full transition-all" style={{ width: `${biggestExpense.percentage}%` }} />
           </div>
           <div className="space-y-2">
-            <h4 className="text-xs font-label uppercase tracking-widest text-slate-500">Top Transactions</h4>
+            <h4 className="text-xs font-label uppercase tracking-widest text-gray-600 dark:text-slate-500">Top Transactions</h4>
             {biggestExpense.transactions.map(tx => (
-              <div key={tx.id} className="flex justify-between items-center py-2.5 px-3 rounded-xl hover:bg-white/[0.02]">
+              <div key={tx.id} className="flex justify-between items-center py-2.5 px-3 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02]">
                 <div>
-                  <p className="text-sm font-bold text-white">{tx.merchant}</p>
-                  <p className="text-[10px] text-slate-500 font-mono">{format(parseISO(tx.date), 'dd MMM yyyy')}</p>
+                  <p className="text-sm font-bold text-gray-900 dark:text-white">{tx.merchant}</p>
+                  <p className="text-[10px] text-gray-600 dark:text-slate-500 font-mono">{format(parseISO(tx.date), 'dd MMM yyyy')}</p>
                 </div>
                 <span className="font-mono text-sm text-[#ff706f]">-{formatCurrency(tx.amount)}</span>
               </div>
             ))}
           </div>
-          <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-white/[0.02]">
-            <span className="text-sm text-slate-400">vs Last Month</span>
+          <div className="flex items-center justify-between py-3 px-4 rounded-xl bg-gray-50 border border-gray-100 dark:bg-white/[0.02] dark:border-transparent">
+            <span className="text-sm text-gray-600 dark:text-slate-400">vs Last Month</span>
             <span className={clsx('font-mono text-sm font-bold flex items-center gap-1', biggestChange >= 0 ? 'text-[#ff706f]' : 'text-[#00fd87]')}>
               {biggestChange >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
               {biggestChange >= 0 ? '+' : ''}{biggestChange}%
             </span>
           </div>
           <div className="p-4 rounded-xl bg-[#f59e0b]/5 border border-[#f59e0b]/20">
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-gray-700 dark:text-slate-300">
               <span className="text-[#f59e0b] font-bold flex items-center gap-1.5 inline-flex"><Lightbulb size={14} /> Tip: </span>
               Consider setting a {formatCurrency(biggestExpense.totalAmount * 0.8)} monthly cap for {biggestExpense.category}. You&apos;ve been spending consistently in this area.
             </p>
@@ -329,13 +336,13 @@ export function Insights() {
       <Modal isOpen={momModal} onClose={() => setMomModal(false)} title="Month-over-Month Comparison" titleIcon={<TrendingUp size={18} className="text-[#00fd87]" />}>
         <div className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-white/[0.02] text-center">
-              <p className="text-[10px] font-label uppercase tracking-widest text-slate-500 mb-2">This Month</p>
-              <p className="text-2xl font-mono font-bold text-white">{formatCurrency(momChange.current)}</p>
+            <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 text-center dark:bg-white/[0.02] dark:border-transparent">
+              <p className="text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500 mb-2">This Month</p>
+              <p className="text-2xl font-mono font-bold text-gray-900 dark:text-white">{formatCurrency(momChange.current)}</p>
             </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] text-center">
-              <p className="text-[10px] font-label uppercase tracking-widest text-slate-500 mb-2">Last Month</p>
-              <p className="text-2xl font-mono font-bold text-slate-400">{formatCurrency(momChange.previous)}</p>
+            <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 text-center dark:bg-white/[0.02] dark:border-transparent">
+              <p className="text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500 mb-2">Last Month</p>
+              <p className="text-2xl font-mono font-bold text-gray-600 dark:text-slate-400">{formatCurrency(momChange.previous)}</p>
             </div>
           </div>
           <div className="text-center py-2">
@@ -345,19 +352,20 @@ export function Insights() {
             )}>
               {momChange.changePercent >= 0 ? '+' : ''}{momChange.changePercent}%
             </span>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-gray-600 dark:text-slate-500 mt-1">
               {momChange.trend === 'up' ? 'Spending increased' : 'Spending decreased'}
             </p>
           </div>
           <div>
-            <h4 className="text-xs font-label uppercase tracking-widest text-slate-500 mb-4">Category Comparison</h4>
+            <h4 className="text-xs font-label uppercase tracking-widest text-gray-600 dark:text-slate-500 mb-4">Category Comparison</h4>
             <div className="h-64 md:h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={momChange.categoryBreakdown}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
                   <XAxis
                     dataKey="category"
-                    stroke="#75757c"
+                    stroke={chartTheme.axisColor}
+                    tick={{ fill: chartTheme.textColor }}
                     fontSize={9}
                     fontFamily="DM Mono"
                     angle={-15}
@@ -366,18 +374,18 @@ export function Insights() {
                     interval="preserveStartEnd"
                     minTickGap={10}
                   />
-                  <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-                  <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+                  <YAxis stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                  <Tooltip contentStyle={chartTheme.tooltipContentStyleCompact} itemStyle={{ color: chartTheme.tooltipText }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
                   <Bar dataKey="current" fill="#5bb1ff" name="Current" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="previous" fill="#47474e" name="Previous" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="previous" fill={theme === 'light' ? '#94a3b8' : '#47474e'} name="Previous" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-gray-600 dark:text-slate-400">
             You spent {momChange.changePercent >= 0 ? `${momChange.changePercent}% more` : `${Math.abs(momChange.changePercent)}% less`} this month.
             {momChange.categoryBreakdown[0] && (
-              <> Your biggest category was <span className="text-white font-bold">{momChange.categoryBreakdown[0].category}</span> at {formatCurrency(momChange.categoryBreakdown[0].current)}.</>
+              <> Your biggest category was <span className="text-gray-900 font-bold dark:text-white">{momChange.categoryBreakdown[0].category}</span> at {formatCurrency(momChange.categoryBreakdown[0].current)}.</>
             )}
           </p>
         </div>
@@ -391,8 +399,8 @@ export function Insights() {
               <Target size={24} style={{ color: CATEGORY_COLORS[topCategory.name as Category] }} />
             </div>
             <div>
-              <h3 className="text-2xl font-headline font-bold text-white">{topCategory.name}</h3>
-              <p className="text-sm text-slate-500">Top spending this month</p>
+              <h3 className="text-2xl font-headline font-bold text-gray-900 dark:text-white">{topCategory.name}</h3>
+              <p className="text-sm text-gray-600 dark:text-slate-500">Top spending this month</p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -401,28 +409,29 @@ export function Insights() {
               { label: 'Transactions', value: topCategory.count.toString() },
               { label: 'Avg/Transaction', value: formatCurrency(topCategory.avgAmount) },
             ].map(stat => (
-              <div key={stat.label} className="p-3 rounded-xl bg-white/[0.02] text-center">
-                <p className="text-[10px] font-label uppercase tracking-widest text-slate-500 mb-1">{stat.label}</p>
-                <p className="text-lg font-mono font-bold text-white">{stat.value}</p>
+              <div key={stat.label} className="p-3 rounded-xl bg-gray-50 border border-gray-100 text-center dark:bg-white/[0.02] dark:border-transparent">
+                <p className="text-[10px] font-label uppercase tracking-widest text-gray-600 dark:text-slate-500 mb-1">{stat.label}</p>
+                <p className="text-lg font-mono font-bold text-gray-900 dark:text-white">{stat.value}</p>
               </div>
             ))}
           </div>
           <div>
-            <h4 className="text-xs font-label uppercase tracking-widest text-slate-500 mb-4">6-Month Trend</h4>
+            <h4 className="text-xs font-label uppercase tracking-widest text-gray-600 dark:text-slate-500 mb-4">6-Month Trend</h4>
             <div className="h-56 md:h-72">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topCategory.monthlyTrend}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridColor} />
                   <XAxis
                     dataKey="month"
-                    stroke="#75757c"
+                    stroke={chartTheme.axisColor}
+                    tick={{ fill: chartTheme.textColor }}
                     fontSize={10}
                     fontFamily="DM Mono"
                     interval="preserveStartEnd"
                     minTickGap={12}
                   />
-                  <YAxis stroke="#75757c" fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
-                  <Tooltip contentStyle={{ background: '#1a1c24', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '11px' }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
+                  <YAxis stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
+                  <Tooltip contentStyle={chartTheme.tooltipContentStyleCompact} itemStyle={{ color: chartTheme.tooltipText }} formatter={(value: any) => formatCurrency(Number(value || 0))} />
                   <Bar dataKey="amount" fill={CATEGORY_COLORS[topCategory.name as Category] || '#5bb1ff'} radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>

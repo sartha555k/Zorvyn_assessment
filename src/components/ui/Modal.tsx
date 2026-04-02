@@ -36,21 +36,21 @@ export function Modal({ isOpen, onClose, children, title, titleIcon, width = 'md
         className={clsx(
           'relative w-screen md:w-full overflow-hidden',
           'rounded-t-2xl rounded-b-none md:rounded-2xl',
-          'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700',
+          'bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700',
           'shadow-xl dark:shadow-slate-900/50',
           'animate-modal-in',
           width
         )}
       >
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-white/5">
             <div className="flex items-center gap-3">
               {titleIcon && <span className="text-xl">{titleIcon}</span>}
               <h2 className="text-lg font-headline font-bold text-gray-900 dark:text-white">{title}</h2>
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors"
+              className="p-1.5 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors"
             >
               <X size={18} />
             </button>

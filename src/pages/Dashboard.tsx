@@ -120,10 +120,10 @@ export function Dashboard() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-xl md:text-4xl font-headline font-black tracking-tight text-white mb-1">
-            Pulse AI <span className="text-[#a4ffb9]">Insights</span>
+          <h1 className="text-xl md:text-4xl font-headline font-black tracking-tight text-gray-900 dark:text-white mb-1">
+            Pulse AI <span className="text-emerald-600 dark:text-[#a4ffb9]">Insights</span>
           </h1>
-          <p className="text-slate-500 text-sm">Deep-frequency analysis for your finances</p>
+          <p className="text-gray-600 dark:text-slate-500 text-sm">Deep-frequency analysis for your finances</p>
         </div>
       </div>
 
@@ -226,14 +226,7 @@ export function Dashboard() {
                 />
                 <YAxis stroke={chartTheme.axisColor} tick={{ fill: chartTheme.textColor }} fontSize={10} fontFamily="DM Mono" tickFormatter={(v) => `₹${(v / 1000).toFixed(0)}k`} />
                 <Tooltip
-                  contentStyle={{
-                    backgroundColor: chartTheme.tooltipBg,
-                    border: `1px solid ${chartTheme.tooltipBorder}`,
-                    borderRadius: '12px',
-                    color: chartTheme.tooltipText,
-                    fontFamily: 'DM Mono',
-                    fontSize: '12px',
-                  }}
+                  contentStyle={chartTheme.tooltipContentStyle}
                   itemStyle={{ color: chartTheme.tooltipText }}
                   formatter={(value: any) => formatCurrency(Number(value || 0))}
                 />
@@ -269,13 +262,7 @@ export function Dashboard() {
                       ))}
                     </Pie>
                     <Tooltip
-                      contentStyle={{
-                        backgroundColor: chartTheme.tooltipBg,
-                        border: `1px solid ${chartTheme.tooltipBorder}`,
-                        borderRadius: '12px',
-                        color: chartTheme.tooltipText,
-                        fontSize: '12px',
-                      }}
+                      contentStyle={chartTheme.tooltipContentStyle}
                       itemStyle={{ color: chartTheme.tooltipText }}
                       formatter={(value: any) => formatCurrency(Number(value || 0))}
                     />
@@ -293,7 +280,7 @@ export function Dashboard() {
                       <span className="text-gray-700 dark:text-slate-300">{entry.name}</span>
                     </div>
                     <span className="font-mono text-gray-900 dark:text-white">
-                      {formatCurrency(entry.value)} <span className="text-gray-400 dark:text-slate-500">{Math.round((entry.value / totalPieValue) * 100)}%</span>
+                      {formatCurrency(entry.value)} <span className="text-gray-600 dark:text-slate-500">{Math.round((entry.value / totalPieValue) * 100)}%</span>
                     </span>
                   </div>
                 ))}
