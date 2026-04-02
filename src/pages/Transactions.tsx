@@ -9,6 +9,7 @@ import { EmptyState } from '../components/ui/EmptyState';
 import { useTransactionStore } from '../store/useTransactionStore';
 import { useAuthStore } from '../store/useAuthStore';
 import { useFilterStore } from '../store/useFilterStore';
+import { usePreferenceStore } from '../store/usePreferenceStore';
 import { useFilters } from '../hooks/useFilters';
 import { formatCurrency } from '../utils/formatCurrency';
 import { exportCSV, exportJSON } from '../utils/exportData';
@@ -26,6 +27,7 @@ export function Transactions() {
     sortField, setSort, resetFilters,
   } = useFilterStore();
   const { filteredTransactions, totalIncome, totalExpenses, netAmount } = useFilters(transactions);
+  const { compactMode } = usePreferenceStore();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -142,10 +144,10 @@ export function Transactions() {
   return (
     <section className="p-4 md:p-8 max-w-7xl mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <h1 className="text-xl font-headline font-bold text-white">Transactions</h1>
-          <span className="px-3 py-0.5 bg-[#24252d] text-[#00fd87] font-mono text-xs rounded-full border border-[#00fd87]/20">
+          <h1 className="text-xl font-headline font-bold text-gray-900 dark:text-white">Transactions</h1>
+          <span className="px-3 py-0.5 bg-gray-100 dark:bg-[#24252d] text-emerald-600 dark:text-[#00fd87] font-mono text-xs rounded-full border border-gray-200 dark:border-[#00fd87]/20">
             {filteredTransactions.length}
           </span>
         </div>
@@ -156,11 +158,11 @@ export function Transactions() {
               <Download size={14} /> Export
             </Button>
             {showExportMenu && (
-              <div className="absolute right-0 top-full mt-1 bg-[#1e1f26] border border-white/10 rounded-xl overflow-hidden shadow-2xl z-50 min-w-[160px]">
-                <button className="w-full px-4 py-2.5 text-xs text-left hover:bg-white/5 text-white" onClick={() => { exportCSV(filteredTransactions, 'transactions'); addToast('success', 'CSV exported'); setShowExportMenu(false); }}>
+              <div className="absolute right-0 top-full mt-1 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl z-50 min-w-[160px]">
+                <button className="w-full px-4 py-2.5 text-xs text-left hover:bg-gray-50 dark:hover:bg-white/5 text-gray-900 dark:text-white" onClick={() => { exportCSV(filteredTransactions, 'transactions'); addToast('success', 'CSV exported'); setShowExportMenu(false); }}>
                   Export CSV
                 </button>
-                <button className="w-full px-4 py-2.5 text-xs text-left hover:bg-white/5 text-white" onClick={() => { exportJSON(filteredTransactions, 'transactions'); addToast('success', 'JSON exported'); setShowExportMenu(false); }}>
+                <button className="w-full px-4 py-2.5 text-xs text-left hover:bg-gray-50 dark:hover:bg-white/5 text-gray-900 dark:text-white" onClick={() => { exportJSON(filteredTransactions, 'transactions'); addToast('success', 'JSON exported'); setShowExportMenu(false); }}>
                   Export JSON
                 </button>
               </div>
@@ -178,13 +180,13 @@ export function Transactions() {
       <div className="flex flex-col lg:flex-row gap-3 items-start lg:items-center">
         {/* Search */}
         <div className="relative w-full lg:w-64">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
             placeholder="Search transactions..."
-            className="w-full pl-9 pr-4 py-2.5 bg-[#121319]/40 border border-white/5 rounded-xl text-sm text-white focus:outline-none focus:ring-1 focus:ring-[#00fd87] placeholder:text-slate-600"
+            className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-[#121319]/40 border border-gray-200 dark:border-white/5 rounded-xl text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-emerald-400 placeholder:text-gray-400 dark:placeholder:text-slate-600 transition-colors"
           />
         </div>
 
@@ -193,22 +195,22 @@ export function Transactions() {
           <div className="relative">
             <button
               onClick={() => setShowCatFilter(!showCatFilter)}
-              className="flex items-center gap-2 px-3 py-2 bg-[#1e1f26] border border-white/5 rounded-xl text-xs font-bold text-slate-300 hover:text-white"
+              className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/5 rounded-xl text-xs font-bold text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white"
             >
               <Filter size={12} /> Categories
               {selectedCategories.length > 0 && (
-                <span className="bg-[#00fd87]/20 text-[#00fd87] text-[10px] px-1.5 rounded-full">{selectedCategories.length}</span>
+                <span className="bg-indigo-100 dark:bg-[#00fd87]/20 text-indigo-700 dark:text-[#00fd87] text-[10px] px-1.5 rounded-full">{selectedCategories.length}</span>
               )}
             </button>
             {showCatFilter && (
-              <div className="absolute left-0 top-full mt-1 bg-[#1e1f26] border border-white/10 rounded-xl overflow-hidden shadow-2xl z-50 max-h-64 overflow-y-auto w-52">
+              <div className="absolute left-0 top-full mt-1 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/10 rounded-xl overflow-hidden shadow-2xl z-50 max-h-64 overflow-y-auto w-52">
                 {CATEGORIES.map(cat => (
-                  <label key={cat} className="flex items-center gap-3 px-4 py-2 hover:bg-white/5 cursor-pointer text-xs">
+                  <label key={cat} className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer text-xs text-gray-700 dark:text-slate-300">
                     <input
                       type="checkbox"
                       checked={selectedCategories.includes(cat)}
                       onChange={() => { toggleCategory(cat); setCurrentPage(1); }}
-                      className="rounded bg-[#24252d] border-white/20 text-[#00fd87] focus:ring-[#00fd87]"
+                      className="rounded bg-white dark:bg-[#24252d] border-gray-300 dark:border-white/20 text-indigo-600 dark:text-[#00fd87] focus:ring-indigo-500 dark:focus:ring-[#00fd87]"
                     />
                     <span className="w-2 h-2 rounded" style={{ backgroundColor: CATEGORY_COLORS[cat] }} />
                     {cat}
@@ -219,7 +221,7 @@ export function Transactions() {
           </div>
 
           {/* Type Filter */}
-          <div className="flex bg-[#1e1f26] rounded-xl border border-white/5 overflow-hidden">
+          <div className="flex bg-white dark:bg-[#1e1f26] rounded-xl border border-gray-200 dark:border-white/5 overflow-hidden">
             {(['all', 'income', 'expense'] as const).map(type => (
               <button
                 key={type}
@@ -227,8 +229,8 @@ export function Transactions() {
                 className={clsx(
                   'px-3 py-2 text-xs font-bold capitalize transition-all',
                   selectedType === type
-                    ? 'bg-[#00fd87]/15 text-[#00fd87]'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-indigo-50 text-indigo-700 dark:bg-[#00fd87]/15 dark:text-[#00fd87]'
+                    : 'text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white'
                 )}
               >
                 {type}
@@ -241,17 +243,17 @@ export function Transactions() {
             type="date"
             value={dateRange.from}
             onChange={(e) => { setDateRange({ ...dateRange, from: e.target.value }); setCurrentPage(1); }}
-            className="px-3 py-2 bg-[#1e1f26] border border-white/5 rounded-xl text-xs text-white focus:ring-1 focus:ring-[#00fd87]"
+            className="px-3 py-2 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/5 rounded-xl text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-[#00fd87]"
           />
           <input
             type="date"
             value={dateRange.to}
             onChange={(e) => { setDateRange({ ...dateRange, to: e.target.value }); setCurrentPage(1); }}
-            className="px-3 py-2 bg-[#1e1f26] border border-white/5 rounded-xl text-xs text-white focus:ring-1 focus:ring-[#00fd87]"
+            className="px-3 py-2 bg-white dark:bg-[#1e1f26] border border-gray-200 dark:border-white/5 rounded-xl text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-[#00fd87]"
           />
 
           {hasActiveFilters && (
-            <button onClick={() => { resetFilters(); setCurrentPage(1); }} className="text-xs text-[#ff706f] hover:underline">
+            <button onClick={() => { resetFilters(); setCurrentPage(1); }} className="text-xs text-rose-500 dark:text-[#ff706f] hover:underline">
               Reset Filters
             </button>
           )}
@@ -259,18 +261,18 @@ export function Transactions() {
       </div>
 
       {/* Stats Bar */}
-      <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 px-1">
+      <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-gray-500 dark:text-slate-400 px-1">
         <span>{filteredTransactions.length} of {transactions.length} transactions</span>
-        <span className="h-3 w-px bg-white/10" />
-        <span>Income: <span className="text-[#00fd87]">{formatCurrency(totalIncome)}</span></span>
-        <span>Expenses: <span className="text-[#ff706f]">{formatCurrency(totalExpenses)}</span></span>
-        <span>Net: <span className={netAmount >= 0 ? 'text-[#00fd87]' : 'text-[#ff706f]'}>{formatCurrency(netAmount)}</span></span>
+        <span className="h-3 w-px bg-gray-200 dark:bg-white/10" />
+        <span>Income: <span className="text-emerald-600 dark:text-[#00fd87]">{formatCurrency(totalIncome)}</span></span>
+        <span>Expenses: <span className="text-rose-600 dark:text-[#ff706f]">{formatCurrency(totalExpenses)}</span></span>
+        <span>Net: <span className={netAmount >= 0 ? 'text-emerald-600 dark:text-[#00fd87]' : 'text-rose-600 dark:text-[#ff706f]'}>{formatCurrency(netAmount)}</span></span>
       </div>
 
       {/* Bulk Actions */}
       {isAdmin && selectedIds.length > 0 && (
-        <div className="flex items-center gap-4 px-4 py-3 bg-[#ff706f]/10 border border-[#ff706f]/30 rounded-xl">
-          <span className="text-sm font-bold text-white">{selectedIds.length} selected</span>
+        <div className="flex items-center gap-4 px-4 py-3 bg-rose-50 dark:bg-[#ff706f]/10 border border-rose-200 dark:border-[#ff706f]/30 rounded-xl">
+          <span className="text-sm font-bold text-gray-900 dark:text-white">{selectedIds.length} selected</span>
           <Button variant="danger" size="sm" onClick={handleBulkDelete}>
             <Trash2 size={14} /> Delete Selected
           </Button>
@@ -283,86 +285,86 @@ export function Transactions() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/5">
+                <tr className="border-b border-gray-100 dark:border-white/5">
                   {isAdmin && (
                     <th className="px-4 py-3 text-left">
                       <input
                         type="checkbox"
                         checked={selectedIds.length === paginatedTxs.length && paginatedTxs.length > 0}
                         onChange={toggleSelectAll}
-                        className="rounded bg-[#24252d] border-white/20 text-[#00fd87] focus:ring-[#00fd87]"
+                        className="rounded bg-white dark:bg-[#24252d] border-gray-300 dark:border-white/20 text-indigo-600 dark:text-[#00fd87] focus:ring-indigo-500 dark:focus:ring-[#00fd87]"
                       />
                     </th>
                   )}
-                  <th onClick={() => setSort('date')} className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500 cursor-pointer hover:text-white">
+                  <th onClick={() => setSort('date')} className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-500 dark:text-slate-500 cursor-pointer hover:text-gray-900 dark:hover:text-white">
                     <span className="flex items-center gap-1">Date <ArrowUpDown size={10} /></span>
                   </th>
-                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500">Description</th>
-                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500">Category</th>
-                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500 hidden md:table-cell">Payment</th>
-                  <th onClick={() => setSort('amount')} className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-slate-500 cursor-pointer hover:text-white">
+                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-500 dark:text-slate-500">Description</th>
+                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-500 dark:text-slate-500">Category</th>
+                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-500 dark:text-slate-500 hidden md:table-cell">Payment</th>
+                  <th onClick={() => setSort('amount')} className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-gray-500 dark:text-slate-500 cursor-pointer hover:text-gray-900 dark:hover:text-white">
                     <span className="flex items-center justify-end gap-1">Amount <ArrowUpDown size={10} /></span>
                   </th>
-                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-slate-500">Type</th>
-                  {isAdmin && <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-slate-500">Actions</th>}
+                  <th className="px-4 py-3 text-left text-[10px] font-label uppercase tracking-widest text-gray-500 dark:text-slate-500">Type</th>
+                  {isAdmin && <th className="px-4 py-3 text-right text-[10px] font-label uppercase tracking-widest text-gray-500 dark:text-slate-500">Actions</th>}
                 </tr>
               </thead>
               <tbody>
                 {paginatedTxs.map((tx) => (
-                  <tr key={tx.id} className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors">
+                  <tr key={tx.id} className="border-b border-gray-100 dark:border-white/[0.03] hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors">
                     {isAdmin && (
-                      <td className="px-4 py-3">
+                      <td className={clsx("px-4", compactMode ? "py-1.5" : "py-3")}>
                         <input
                           type="checkbox"
                           checked={selectedIds.includes(tx.id)}
                           onChange={() => toggleSelect(tx.id)}
-                          className="rounded bg-[#24252d] border-white/20 text-[#00fd87] focus:ring-[#00fd87]"
+                          className="rounded bg-white dark:bg-[#24252d] border-gray-300 dark:border-white/20 text-indigo-600 dark:text-[#00fd87] focus:ring-indigo-500 dark:focus:ring-[#00fd87]"
                         />
                       </td>
                     )}
-                    <td className="px-4 py-3 text-xs font-mono text-slate-400 whitespace-nowrap">
+                    <td className={clsx("px-4 text-xs font-mono text-gray-500 dark:text-slate-400 whitespace-nowrap", compactMode ? "py-1.5" : "py-3")}>
                       {format(parseISO(tx.date), 'dd MMM yy')}
                     </td>
-                    <td className="px-4 py-3">
-                      <p className="text-sm font-bold text-white">{tx.merchant}</p>
-                      <p className="text-[10px] text-slate-500 truncate max-w-[200px]">{tx.description}</p>
+                    <td className={clsx("px-4", compactMode ? "py-1.5" : "py-3")}>
+                      <p className="text-sm font-bold text-gray-900 dark:text-white">{tx.merchant}</p>
+                      <p className="text-[10px] text-gray-500 dark:text-slate-500 truncate max-w-[200px]">{tx.description}</p>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className={clsx("px-4", compactMode ? "py-1.5" : "py-3")}>
                       <Badge color={CATEGORY_COLORS[tx.category]}>{tx.category}</Badge>
                     </td>
-                    <td className="px-4 py-3 hidden md:table-cell">
-                      <span className="text-xs text-slate-400 capitalize">{tx.paymentMethod.replace('_', ' ')}</span>
+                    <td className={clsx("px-4 hidden md:table-cell", compactMode ? "py-1.5" : "py-3")}>
+                      <span className="text-xs text-gray-500 dark:text-slate-400 capitalize">{tx.paymentMethod.replace('_', ' ')}</span>
                     </td>
-                    <td className="px-4 py-3 text-right">
-                      <span className={clsx('font-mono font-medium', tx.type === 'income' ? 'text-[#00fd87]' : 'text-[#ff706f]')}>
+                    <td className={clsx("px-4 text-right", compactMode ? "py-1.5" : "py-3")}>
+                      <span className={clsx('font-mono font-medium', tx.type === 'income' ? 'text-emerald-600 dark:text-[#00fd87]' : 'text-rose-600 dark:text-[#ff706f]')}>
                         {tx.type === 'income' ? '+' : '-'}{formatCurrency(tx.amount)}
                       </span>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className={clsx("px-4", compactMode ? "py-1.5" : "py-3")}>
                       <span className={clsx(
-                        'text-[10px] px-2 py-0.5 rounded-full font-bold uppercase',
-                        tx.type === 'income' ? 'bg-[#00fd87]/10 text-[#00fd87]' : 'bg-[#ff706f]/10 text-[#ff706f]'
+                        'text-[10px] px-2 py-0.5 rounded-full font-bold uppercase border',
+                        tx.type === 'income' ? 'bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-[#00fd87]/10 dark:text-[#00fd87] dark:border-transparent' : 'bg-rose-50 text-rose-700 border-rose-100 dark:bg-[#ff706f]/10 dark:text-[#ff706f] dark:border-transparent'
                       )}>
                         {tx.type}
                       </span>
                     </td>
                     {isAdmin && (
-                      <td className="px-4 py-3 text-right">
+                      <td className={clsx("px-4 text-right", compactMode ? "py-1.5" : "py-3")}>
                         {deleteConfirmId === tx.id ? (
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleDelete(tx.id)} className="p-1.5 rounded-lg bg-[#ff706f]/10 text-[#ff706f] hover:bg-[#ff706f]/20">
+                            <button onClick={() => handleDelete(tx.id)} className="p-1.5 rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-100 dark:bg-[#ff706f]/10 dark:text-[#ff706f] dark:hover:bg-[#ff706f]/20">
                               <Check size={14} />
                             </button>
-                            <button onClick={() => setDeleteConfirmId(null)} className="p-1.5 rounded-lg bg-white/5 text-slate-400 hover:bg-white/10">
+                            <button onClick={() => setDeleteConfirmId(null)} className="p-1.5 rounded-lg bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-white/5 dark:text-slate-400 dark:hover:bg-white/10">
                               <X size={14} />
                             </button>
                           </div>
                         ) : (
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => openEdit(tx)} className="p-1.5 rounded-lg hover:bg-white/5 text-slate-400 hover:text-white transition-colors">
+                            <button onClick={() => openEdit(tx)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors">
                               <Edit2 size={14} />
                             </button>
-                            <button onClick={() => setDeleteConfirmId(tx.id)} className="p-1.5 rounded-lg hover:bg-[#ff706f]/10 text-slate-400 hover:text-[#ff706f] transition-colors">
+                            <button onClick={() => setDeleteConfirmId(tx.id)} className="p-1.5 rounded-lg hover:bg-rose-50 text-gray-400 hover:text-rose-500 dark:hover:bg-[#ff706f]/10 dark:text-slate-400 dark:hover:text-[#ff706f] transition-colors">
                               <Trash2 size={14} />
                             </button>
                           </div>
@@ -377,22 +379,22 @@ export function Transactions() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between px-6 py-4 border-t border-white/5">
-              <span className="text-xs text-slate-500">
+            <div className="flex items-center justify-between px-6 py-4 border-t border-gray-100 dark:border-white/5">
+              <span className="text-xs text-gray-500 dark:text-slate-500">
                 Page {currentPage} of {totalPages}
               </span>
               <div className="flex gap-2">
                 <button
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 text-xs font-bold text-slate-400 disabled:opacity-30 hover:bg-white/10"
+                  className="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 text-xs font-bold text-gray-500 dark:text-slate-400 disabled:opacity-30 hover:bg-gray-200 dark:hover:bg-white/10"
                 >
                   Prev
                 </button>
                 <button
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 text-xs font-bold text-slate-400 disabled:opacity-30 hover:bg-white/10"
+                  className="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 text-xs font-bold text-gray-500 dark:text-slate-400 disabled:opacity-30 hover:bg-gray-200 dark:hover:bg-white/10"
                 >
                   Next
                 </button>
@@ -408,12 +410,12 @@ export function Transactions() {
       {drawerOpen && (
         <div className="fixed inset-0 z-[100] flex justify-end">
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
-          <div className="relative w-full max-w-md bg-[#121319] border-l border-white/10 h-full overflow-y-auto animate-slide-in-right">
-            <div className="flex items-center justify-between p-6 border-b border-white/5">
-              <h2 className="text-lg font-headline font-bold text-white">
+          <div className="relative w-full max-w-md bg-white dark:bg-[#121319] border-l border-gray-200 dark:border-white/10 h-full overflow-y-auto animate-slide-in-right">
+            <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-white/5">
+              <h2 className="text-lg font-headline font-bold text-gray-900 dark:text-white">
                 {editingTx ? 'Edit Transaction' : 'Add Transaction'}
               </h2>
-              <button onClick={() => setDrawerOpen(false)} className="p-1.5 rounded-lg hover:bg-white/5 text-slate-400">
+              <button onClick={() => setDrawerOpen(false)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white">
                 <X size={18} />
               </button>
             </div>
@@ -423,8 +425,8 @@ export function Transactions() {
               <Input label="Amount (₹)" type="number" value={formData.amount} onChange={(e) => setFormData({ ...formData, amount: e.target.value })} error={formErrors.amount} min="0" />
 
               <div className="space-y-1.5">
-                <label className="text-xs font-label uppercase tracking-widest text-slate-400">Type</label>
-                <div className="flex bg-[#24252d] rounded-xl overflow-hidden">
+                <label className="text-xs font-label uppercase tracking-widest text-gray-500 dark:text-slate-400">Type</label>
+                <div className="flex bg-gray-100 dark:bg-[#24252d] rounded-xl overflow-hidden">
                   {(['income', 'expense'] as const).map(type => (
                     <button
                       key={type}
@@ -432,8 +434,8 @@ export function Transactions() {
                       className={clsx(
                         'flex-1 py-2.5 text-sm font-bold capitalize transition-all',
                         formData.type === type
-                          ? type === 'income' ? 'bg-[#00fd87]/15 text-[#00fd87]' : 'bg-[#ff706f]/15 text-[#ff706f]'
-                          : 'text-slate-400'
+                          ? type === 'income' ? 'bg-emerald-100 text-emerald-700 dark:bg-[#00fd87]/15 dark:text-[#00fd87]' : 'bg-rose-100 text-rose-700 dark:bg-[#ff706f]/15 dark:text-[#ff706f]'
+                          : 'text-gray-500 dark:text-slate-400'
                       )}
                     >
                       {type}

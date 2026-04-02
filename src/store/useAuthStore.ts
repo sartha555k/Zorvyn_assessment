@@ -8,6 +8,12 @@ const ADMIN_USER: User = {
   email: 'arjun@fintrack.io',
   avatar: 'AM',
   role: 'admin',
+  phone: '+91 98765 43210',
+  location: 'Bengaluru, India',
+  timezone: 'IST',
+  currency: 'INR',
+  avatarInitials: 'AM',
+  joinedDate: 'January 2025',
 };
 
 const VIEWER_USER: User = {
@@ -15,16 +21,21 @@ const VIEWER_USER: User = {
   email: 'priya@fintrack.io',
   avatar: 'PS',
   role: 'viewer',
+  phone: '+91 98765 43210',
+  location: 'Mumbai, India',
+  timezone: 'IST',
+  currency: 'INR',
+  avatarInitials: 'PS',
+  joinedDate: 'February 2025',
 };
 
 interface AuthState {
   role: Role;
   currentUser: User;
-  darkMode: boolean;
   toasts: Toast[];
   setRole: (role: Role) => void;
   switchRole: () => void;
-  toggleDarkMode: () => void;
+  updateProfile: (updates: Partial<User>) => void;
   addToast: (type: ToastType, message: string) => void;
   removeToast: (id: string) => void;
 }
@@ -34,7 +45,6 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       role: 'admin',
       currentUser: ADMIN_USER,
-      darkMode: true,
       toasts: [],
       setRole: (role) =>
         set({
@@ -48,15 +58,10 @@ export const useAuthStore = create<AuthState>()(
           currentUser: newRole === 'admin' ? ADMIN_USER : VIEWER_USER,
         });
       },
-      toggleDarkMode: () => {
-        const newMode = !get().darkMode;
-        set({ darkMode: newMode });
-        if (newMode) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      },
+      updateProfile: (updates) =>
+        set((state) => ({
+          currentUser: { ...state.currentUser, ...updates },
+        })),
       addToast: (type, message) => {
         const toast: Toast = { id: uuidv4(), type, message };
         set((state) => ({ toasts: [...state.toasts, toast] }));
@@ -76,7 +81,6 @@ export const useAuthStore = create<AuthState>()(
       partialize: (state) => ({
         role: state.role,
         currentUser: state.currentUser,
-        darkMode: state.darkMode,
       }),
     }
   )

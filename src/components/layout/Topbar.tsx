@@ -1,7 +1,8 @@
 import { Search, Bell, Sun, Moon } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useFilterStore } from '../../store/useFilterStore';
-import { useLocation } from 'react-router-dom';
+import { useThemeStore } from '../../store/useThemeStore';
+import { useLocation, Link } from 'react-router-dom';
 import clsx from 'clsx';
 
 const pageTitles: Record<string, string> = {
@@ -12,30 +13,31 @@ const pageTitles: Record<string, string> = {
 };
 
 export function Topbar() {
-  const { currentUser, role, darkMode, toggleDarkMode, setRole, addToast } = useAuthStore();
+  const { currentUser, role, setRole, addToast } = useAuthStore();
+  const { theme, toggleTheme } = useThemeStore();
   const { searchQuery, setSearch } = useFilterStore();
   const location = useLocation();
 
   const pageTitle = pageTitles[location.pathname] || 'Dashboard';
 
   return (
-    <header className="h-16 sticky top-0 z-40 bg-[#0f1117]/80 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-4 md:px-6 w-full">
+    <header className="h-16 sticky top-0 z-40 bg-white/80 dark:bg-[#0f1117]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 flex justify-between items-center px-4 md:px-6 w-full transition-colors">
       <div className="flex items-center gap-4">
-        <h1 className="text-sm md:text-base font-headline font-bold text-white hidden sm:block">
+        <h1 className="text-sm md:text-base font-headline font-bold text-gray-900 dark:text-white hidden sm:block">
           {pageTitle}
         </h1>
       </div>
 
       <div className="flex items-center gap-3 md:gap-6">
         {/* Search */}
-        <div className="flex items-center bg-[#121319]/40 backdrop-blur-md border border-white/5 rounded-xl px-3 py-2 gap-2 focus-within:ring-1 focus-within:ring-[#00fd87] transition-all w-32 sm:w-48 md:w-64 focus-within:w-64 md:focus-within:w-80">
-          <Search size={14} className="text-slate-500 shrink-0" />
+        <div className="flex items-center bg-gray-100 dark:bg-[#121319]/40 backdrop-blur-md border border-gray-200 dark:border-white/5 rounded-xl px-3 py-2 gap-2 focus-within:ring-1 focus-within:ring-indigo-500 dark:focus-within:ring-[#00fd87] transition-all w-32 sm:w-48 md:w-64 focus-within:w-64 md:focus-within:w-80">
+          <Search size={14} className="text-gray-400 dark:text-slate-500 shrink-0" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search..."
-            className="bg-transparent border-none p-0 text-xs focus:ring-0 placeholder:text-slate-600 w-full text-white outline-none"
+            className="bg-transparent border-none p-0 text-xs focus:ring-0 placeholder:text-gray-400 dark:placeholder:text-slate-600 w-full text-gray-900 dark:text-white outline-none"
           />
         </div>
 
@@ -67,34 +69,44 @@ export function Topbar() {
 
         {/* Dark Mode */}
         <button
-          onClick={toggleDarkMode}
-          className="p-2 rounded-full hover:bg-white/5 text-slate-400 hover:text-white transition-colors"
+          onClick={toggleTheme}
+          className={clsx(
+            "p-1.5 rounded-full flex items-center justify-center transition-all duration-300",
+            theme === 'light' 
+              ? "bg-white text-amber-500 hover:bg-gray-100 border border-gray-200" 
+              : "bg-slate-700 text-indigo-400 hover:bg-slate-600 border border-slate-600"
+          )}
+          title="Toggle theme"
         >
-          {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+          {theme === 'light' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
 
         {/* Notifications */}
-        <button className="relative p-2 rounded-full hover:bg-white/5 text-slate-400 hover:text-white transition-colors">
+        <button className="relative p-2 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-white/5 dark:text-slate-400 dark:hover:text-white transition-colors">
           <Bell size={18} />
           <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#ff706f] rounded-full" />
         </button>
 
         {/* User Avatar */}
-        <div className="flex items-center gap-2">
+        <Link 
+          to="/profile" 
+          className="flex items-center gap-2 hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2 hover:ring-offset-white dark:hover:ring-offset-[#0f1117] rounded-full transition-all cursor-pointer outline-none"
+          title="View Profile"
+        >
           <div
             className={clsx(
               'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border',
               role === 'admin'
-                ? 'bg-[#00fd87]/20 text-[#00fd87] border-[#00fd87]/20'
-                : 'bg-amber-500/20 text-amber-400 border-amber-500/20'
+                ? 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-400 dark:border-indigo-500/20'
+                : 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/40 dark:text-amber-400 dark:border-amber-500/20'
             )}
           >
-            {currentUser.avatar}
+            {currentUser.avatarInitials || currentUser.avatar}
           </div>
-          <span className="text-xs font-bold text-white hidden md:block">
+          <span className="text-xs font-bold text-gray-900 dark:text-white hidden md:block">
             {currentUser.name}
           </span>
-        </div>
+        </Link>
       </div>
     </header>
   );
