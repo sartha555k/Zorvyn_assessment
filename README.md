@@ -87,6 +87,3 @@ src/
 - **Responsive-First**: Optimized for Desktop, Tablet, and Mobile with a custom drawer-based navigation on small screens.
 - **Accessibility**: Semantic HTML and focus state management.
 
-## 📄 License
-
-This project is licensed under the MIT License.
