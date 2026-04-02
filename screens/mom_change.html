@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "tertiary-dim": "#44a3f5",
+            "surface-container": "#181920",
+            "on-secondary-fixed-variant": "#9a2128",
+            "inverse-surface": "#faf8ff",
+            "surface-dim": "#0d0e13",
+            "surface-container-highest": "#24252d",
+            "on-secondary": "#490008",
+            "inverse-primary": "#006e37",
+            "on-primary-fixed-variant": "#006632",
+            "on-primary": "#006532",
+            "outline-variant": "#47474e",
+            "on-background": "#f7f5fd",
+            "surface": "#0d0e13",
+            "outline": "#75757c",
+            "secondary-container": "#8c1520",
+            "tertiary-fixed-dim": "#4ba9fa",
+            "on-secondary-container": "#ffc1be",
+            "error": "#ff716c",
+            "on-secondary-fixed": "#6f0011",
+            "surface-container-lowest": "#000000",
+            "surface-container-low": "#121319",
+            "error-dim": "#d7383b",
+            "secondary": "#ff706f",
+            "on-tertiary-fixed-variant": "#003c64",
+            "surface-variant": "#24252d",
+            "secondary-fixed-dim": "#ffafac",
+            "inverse-on-surface": "#54545b",
+            "on-tertiary-fixed": "#00192f",
+            "primary-container": "#00fd87",
+            "tertiary-fixed": "#6ab6ff",
+            "on-tertiary-container": "#00223c",
+            "primary-fixed-dim": "#00ed7e",
+            "secondary-dim": "#ff706f",
+            "on-surface-variant": "#abaab2",
+            "primary-fixed": "#00fd87",
+            "tertiary-container": "#44a3f5",
+            "error-container": "#9f0519",
+            "tertiary": "#5bb1ff",
+            "on-primary-container": "#005b2c",
+            "background": "#0d0e13",
+            "surface-tint": "#a4ffb9",
+            "surface-container-high": "#1e1f26",
+            "on-primary-fixed": "#004621",
+            "on-error": "#490006",
+            "primary-dim": "#00ed7e",
+            "on-tertiary": "#002e4f",
+            "on-error-container": "#ffa8a3",
+            "on-surface": "#f7f5fd",
+            "secondary-fixed": "#ffc3c0",
+            "primary": "#a4ffb9",
+            "surface-bright": "#2a2c34"
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk"],
+            "body": ["Plus Jakarta Sans"],
+            "label": ["Plus Jakarta Sans"],
+            "mono": ["DM Mono"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .neon-border {
+      position: relative;
+    }
+    .neon-border::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(0, 253, 135, 0.25), rgba(91, 177, 255, 0.25));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Background Dashboard Content (Blurred) -->
+<div class="fixed inset-0 overflow-hidden blur-lg scale-105 pointer-events-none opacity-40">
+<nav class="fixed top-0 w-full flex justify-between items-center px-6 h-16 bg-[#0d0e13]/60 border-b border-white/5 z-50">
+<div class="text-2xl font-black tracking-tighter text-[#00fd87]">VELOCITY.AI</div>
+<div class="flex gap-8 font-headline font-bold uppercase tracking-tight">
+<span class="text-slate-400">Markets</span>
+<span class="text-[#00fd87] border-b-2 border-[#00fd87]">Assets</span>
+<span class="text-slate-400">Terminal</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest"></div>
+</div>
+</nav>
+<main class="pt-24 px-8 grid grid-cols-12 gap-6 max-w-7xl mx-auto">
+<div class="col-span-8 space-y-6">
+<div class="h-64 bg-surface-container-low rounded-xl"></div>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-32 bg-surface-container-low rounded-xl"></div>
+<div class="h-32 bg-surface-container-low rounded-xl"></div>
+<div class="h-32 bg-surface-container-low rounded-xl"></div>
+</div>
+<div class="h-96 bg-surface-container-low rounded-xl"></div>
+</div>
+<div class="col-span-4 space-y-6">
+<div class="h-[600px] bg-surface-container-low rounded-xl"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-background/40 backdrop-blur-[8px]">
+<!-- Modal Container -->
+<div class="relative w-[600px] bg-[#111118] rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] neon-border p-8">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors duration-200">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+<!-- Header -->
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<h2 class="text-xl font-headline font-bold tracking-tight text-on-surface">MoM Performance</h2>
+</div>
+<!-- Content Layout -->
+<div class="space-y-10">
+<!-- Main Stats -->
+<div class="text-center">
+<div class="font-mono text-7xl font-bold tracking-tighter text-primary-fixed drop-shadow-[0_0_15px_rgba(0,253,135,0.3)]">
+            +14.2%
+          </div>
+<div class="mt-2 text-slate-400 font-medium">Growth vs last month</div>
+</div>
+<!-- Comparison Chart (Bento Style Vertical Bars) -->
+<div class="flex justify-around items-end h-48 px-12 relative">
+<!-- Background Grid Lines -->
+<div class="absolute inset-x-0 bottom-0 border-b border-white/5 w-full"></div>
+<!-- Bar 1 (May) -->
+<div class="flex flex-col items-center group">
+<div class="font-mono text-sm text-slate-500 mb-2">$84.2K</div>
+<div class="w-24 bg-surface-container-highest rounded-t-lg h-32 transition-all duration-500 group-hover:bg-surface-bright"></div>
+<div class="mt-4 text-xs font-bold font-headline uppercase tracking-widest text-slate-500">May</div>
+</div>
+<!-- Bar 2 (June) -->
+<div class="flex flex-col items-center group">
+<div class="font-mono text-sm text-primary-fixed-dim mb-2">$96.1K</div>
+<div class="w-24 bg-gradient-to-t from-primary-container to-tertiary-container rounded-t-lg h-40 shadow-[0_0_30px_rgba(0,253,135,0.15)] group-hover:scale-x-105 transition-transform"></div>
+<div class="mt-4 text-xs font-bold font-headline uppercase tracking-widest text-primary">June</div>
+</div>
+</div>
+<!-- AI Insights Section -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-6 border border-white/5">
+<!-- Subtle Glow Background -->
+<div class="absolute -right-20 -top-20 w-40 h-40 bg-primary/10 blur-[60px]"></div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline font-bold text-on-surface flex items-center gap-2">
+                Smart Analysis
+              </h3>
+<p class="mt-1 text-sm text-slate-400 leading-relaxed">
+                The recent surge is primarily driven by institutional inflow in the <span class="text-white font-medium">Terminal Strategy</span> sector. Predicted retention for next month is <span class="text-primary-fixed">92%</span>.
+              </p>
+<button class="mt-6 w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg font-bold font-headline text-sm bg-gradient-to-r from-primary to-tertiary text-on-primary hover:opacity-90 active:scale-[0.98] transition-all">
+                Deep Dive Analysis
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Background Image (hidden from direct view but for context) -->
+<img class="hidden" data-alt="Futuristic digital interface with glowing green data streams and neon charts in a high-tech trading dark environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNeS9KgqKtrZcil6K29ZhzrU3dT8xI4kMX7c-s6pnGRuQMMHI97wYKPEuMAbFbvvh2wM2YEIOeRsGqNSWLBJ61cVRm0xAuHVrWdDTUIPmhxhLizUIboxbTxb9hdMNNzanw5OC1ehMfkmHkBCCPvztvvt8klx5nNN-PHoiVxl3I10IYgR-PfGu82VXClm6U5Xv3mrnWoU_kAsGF9sZGZCx0UXnGRmVKt8w0rRScEyOqnYwqVY4L8CeIqSLjPlGvt3MrDju2D16U_E4"/>
+</body></html>

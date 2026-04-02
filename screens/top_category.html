@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Velocity.AI - Top Spending Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-dim": "#44a3f5",
+              "surface-container": "#181920",
+              "on-secondary-fixed-variant": "#9a2128",
+              "inverse-surface": "#faf8ff",
+              "surface-dim": "#0d0e13",
+              "surface-container-highest": "#24252d",
+              "on-secondary": "#490008",
+              "inverse-primary": "#006e37",
+              "on-primary-fixed-variant": "#006632",
+              "on-primary": "#006532",
+              "outline-variant": "#47474e",
+              "on-background": "#f7f5fd",
+              "surface": "#0d0e13",
+              "outline": "#75757c",
+              "secondary-container": "#8c1520",
+              "tertiary-fixed-dim": "#4ba9fa",
+              "on-secondary-container": "#ffc1be",
+              "error": "#ff716c",
+              "on-secondary-fixed": "#6f0011",
+              "surface-container-lowest": "#000000",
+              "surface-container-low": "#121319",
+              "error-dim": "#d7383b",
+              "secondary": "#ff706f",
+              "on-tertiary-fixed-variant": "#003c64",
+              "surface-variant": "#24252d",
+              "secondary-fixed-dim": "#ffafac",
+              "inverse-on-surface": "#54545b",
+              "on-tertiary-fixed": "#00192f",
+              "primary-container": "#00fd87",
+              "tertiary-fixed": "#6ab6ff",
+              "on-tertiary-container": "#00223c",
+              "primary-fixed-dim": "#00ed7e",
+              "secondary-dim": "#ff706f",
+              "on-surface-variant": "#abaab2",
+              "primary-fixed": "#00fd87",
+              "tertiary-container": "#44a3f5",
+              "error-container": "#9f0519",
+              "tertiary": "#5bb1ff",
+              "on-primary-container": "#005b2c",
+              "background": "#0d0e13",
+              "surface-tint": "#a4ffb9",
+              "surface-container-high": "#1e1f26",
+              "on-primary-fixed": "#004621",
+              "on-error": "#490006",
+              "primary-dim": "#00ed7e",
+              "on-tertiary": "#002e4f",
+              "on-error-container": "#ffa8a3",
+              "on-surface": "#f7f5fd",
+              "secondary-fixed": "#ffc3c0",
+              "primary": "#a4ffb9",
+              "surface-bright": "#2a2c34"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"],
+              "mono": ["DM Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(18, 19, 25, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .neon-border {
+            position: relative;
+        }
+        .neon-border::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(0, 253, 135, 0.25), rgba(91, 177, 255, 0.25));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #24252d;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-hidden">
+<!-- Background Layer (The AI Insights Dashboard - SCREEN_7) -->
+<div class="fixed inset-0 z-0 flex blur-[8px] opacity-40">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen border-r border-white/5 z-40 bg-[#121319]/80 backdrop-blur-2xl h-full w-[220px] fixed left-0 top-0">
+<div class="p-6">
+<div class="text-lg font-bold text-white mb-8">NEON</div>
+<nav class="space-y-4">
+<div class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#00fd87]/10 to-transparent text-[#00fd87] border-l-4 border-[#00fd87] font-['Plus_Jakarta_Sans'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                        Overview
+                    </div>
+<div class="flex items-center gap-3 px-4 py-3 text-slate-500 font-['Plus_Jakarta_Sans'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        AI Insights
+                    </div>
+<div class="flex items-center gap-3 px-4 py-3 text-slate-500 font-['Plus_Jakarta_Sans'] text-sm font-medium">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+                        Strategy
+                    </div>
+</nav>
+</div>
+</aside>
+<!-- Main Dashboard Content -->
+<main class="ml-[220px] w-full p-8 overflow-y-auto">
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-12 h-64 bg-surface-container-low rounded-xl"></div>
+<div class="col-span-4 h-96 bg-surface-container-low rounded-xl"></div>
+<div class="col-span-8 h-96 bg-surface-container-low rounded-xl"></div>
+<div class="col-span-12 h-48 bg-surface-container-low rounded-xl"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-[8px]">
+<!-- Modal Container -->
+<div class="relative w-full max-w-[600px] bg-[#111118] rounded-xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] neon-border overflow-hidden p-8 flex flex-col gap-8">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 p-2 rounded-full hover:bg-white/5 text-slate-400 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+<!-- Modal Header -->
+<header class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h2 class="font-headline text-xl font-bold tracking-tight text-white">Top Category Insight</h2>
+<p class="text-xs text-slate-400 uppercase tracking-widest font-medium">Monthly Expenditure Report</p>
+</div>
+</header>
+<!-- Main Stat Section -->
+<section class="flex flex-col gap-1">
+<h1 class="font-headline text-5xl font-black text-primary tracking-tighter">Food &amp; Drink</h1>
+<div class="flex items-center gap-2">
+<span class="font-mono text-2xl font-medium text-white">₹12,450</span>
+<span class="text-slate-400 text-sm">spent this month</span>
+</div>
+</section>
+<!-- Comparison Chart Section -->
+<section class="space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="text-sm font-bold text-white/70 uppercase tracking-wider">Comparative Volume</h3>
+<span class="text-[10px] text-primary bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">LIVE DATA</span>
+</div>
+<div class="space-y-5">
+<!-- Item 1: Primary -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-mono">
+<span class="text-white">Food &amp; Drink</span>
+<span class="text-primary">100%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-tertiary w-full rounded-full shadow-[0_0_15px_rgba(0,253,135,0.3)]"></div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-mono">
+<span class="text-slate-400">Transport</span>
+<span class="text-slate-200">62%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-slate-500 w-[62%] rounded-full opacity-60"></div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-mono">
+<span class="text-slate-400">Shopping</span>
+<span class="text-slate-200">48%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-slate-500 w-[48%] rounded-full opacity-60"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Section -->
+<section class="mt-4 p-5 rounded-xl bg-surface-container-high relative overflow-hidden group">
+<!-- Decorative Ambient Glow -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/5 blur-[40px] rounded-full"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-start gap-4">
+<div class="mt-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="space-y-1">
+<h4 class="text-sm font-bold text-white tracking-tight">✦ Smart Analysis</h4>
+<p class="text-xs text-slate-400 leading-relaxed max-w-[320px]">
+                                Spending in Food &amp; Drink has increased by 14% compared to last month. Consider consolidating subscriptions to optimize flow.
+                            </p>
+</div>
+</div>
+<button class="group/btn flex items-center gap-2 px-4 py-2 bg-surface-container-highest hover:bg-surface-bright text-xs font-bold text-primary rounded-lg transition-all border border-white/5 active:scale-95">
+<span class="material-symbols-outlined text-sm group-hover/btn:rotate-180 transition-transform duration-500">sync</span>
+                        Regenerate Analysis
+                    </button>
+</div>
+</section>
+</div>
+</div>
+<!-- Hidden Header Anchor (TopAppBar) as required by JSON for consistency -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0d0e13]/60 backdrop-blur-xl border-b border-white/5 pointer-events-none opacity-0">
+<div class="text-2xl font-black tracking-tighter text-[#00fd87] drop-shadow-[0_0_10px_rgba(0,253,135,0.4)] font-['Space_Grotesk']">VELOCITY.AI</div>
+<div class="flex gap-6">
+<span class="text-slate-400">Markets</span>
+<span class="text-slate-400">Assets</span>
+<span class="text-[#00fd87] border-b-2 border-[#00fd87] pb-1">Terminal</span>
+</div>
+</header>
+</body></html>

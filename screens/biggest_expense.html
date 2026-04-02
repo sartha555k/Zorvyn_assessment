@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Velocity.AI - AI Insights Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-dim": "#44a3f5",
+              "surface-container": "#181920",
+              "on-secondary-fixed-variant": "#9a2128",
+              "inverse-surface": "#faf8ff",
+              "surface-dim": "#0d0e13",
+              "surface-container-highest": "#24252d",
+              "on-secondary": "#490008",
+              "inverse-primary": "#006e37",
+              "on-primary-fixed-variant": "#006632",
+              "on-primary": "#006532",
+              "outline-variant": "#47474e",
+              "on-background": "#f7f5fd",
+              "surface": "#0d0e13",
+              "outline": "#75757c",
+              "secondary-container": "#8c1520",
+              "tertiary-fixed-dim": "#4ba9fa",
+              "on-secondary-container": "#ffc1be",
+              "error": "#ff716c",
+              "on-secondary-fixed": "#6f0011",
+              "surface-container-lowest": "#000000",
+              "surface-container-low": "#121319",
+              "error-dim": "#d7383b",
+              "secondary": "#ff706f",
+              "on-tertiary-fixed-variant": "#003c64",
+              "surface-variant": "#24252d",
+              "secondary-fixed-dim": "#ffafac",
+              "inverse-on-surface": "#54545b",
+              "on-tertiary-fixed": "#00192f",
+              "primary-container": "#00fd87",
+              "tertiary-fixed": "#6ab6ff",
+              "on-tertiary-container": "#00223c",
+              "primary-fixed-dim": "#00ed7e",
+              "secondary-dim": "#ff706f",
+              "on-surface-variant": "#abaab2",
+              "primary-fixed": "#00fd87",
+              "tertiary-container": "#44a3f5",
+              "error-container": "#9f0519",
+              "tertiary": "#5bb1ff",
+              "on-primary-container": "#005b2c",
+              "background": "#0d0e13",
+              "surface-tint": "#a4ffb9",
+              "surface-container-high": "#1e1f26",
+              "on-primary-fixed": "#004621",
+              "on-error": "#490006",
+              "primary-dim": "#00ed7e",
+              "on-tertiary": "#002e4f",
+              "on-error-container": "#ffa8a3",
+              "on-surface": "#f7f5fd",
+              "secondary-fixed": "#ffc3c0",
+              "primary": "#a4ffb9",
+              "surface-bright": "#2a2c34"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"],
+              "mono": ["DM Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-border {
+            position: relative;
+            background-clip: padding-box;
+            border: 1px solid transparent;
+        }
+        .glass-border::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(0, 253, 135, 0.25), rgba(91, 177, 255, 0.25));
+        }
+        .text-neon-glow {
+            text-shadow: 0 0 10px rgba(0, 253, 135, 0.4);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary/30 overflow-hidden">
+<!-- Background Layer (The AI Insights Dashboard) -->
+<div class="fixed inset-0 z-0 flex blur-lg opacity-40">
+<!-- SideNavBar Simulation -->
+<aside class="w-[220px] bg-[#121319]/80 h-full border-r border-white/5 p-6 flex flex-col gap-8">
+<div class="text-white font-headline font-bold text-lg">NEON</div>
+<nav class="flex flex-col gap-4">
+<div class="h-8 bg-white/5 rounded-lg w-full"></div>
+<div class="h-8 bg-[#00fd87]/10 rounded-lg w-full border-l-4 border-[#00fd87]"></div>
+<div class="h-8 bg-white/5 rounded-lg w-full"></div>
+<div class="h-8 bg-white/5 rounded-lg w-full"></div>
+</nav>
+</aside>
+<!-- Main Content Simulation -->
+<main class="flex-1 p-8 space-y-8 overflow-hidden">
+<div class="flex justify-between items-center h-16">
+<div class="h-8 bg-white/5 rounded w-48"></div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-white/5"></div>
+<div class="w-10 h-10 rounded-full bg-white/5"></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="col-span-2 h-[400px] bg-surface-container rounded-xl border border-white/5"></div>
+<div class="col-span-1 h-[400px] bg-surface-container rounded-xl border border-white/5"></div>
+<div class="col-span-3 h-[300px] bg-surface-container rounded-xl border border-white/5"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-surface/60 backdrop-blur-md p-6">
+<!-- Modal Container -->
+<div class="w-full max-w-[600px] bg-[#111118] rounded-xl glass-border shadow-2xl relative flex flex-col overflow-hidden">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 text-on-surface-variant hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<!-- Header -->
+<div class="px-8 pt-8 pb-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="receipt_long">receipt_long</span>
+</div>
+<div>
+<h2 class="font-headline text-lg font-bold tracking-tight text-on-surface">Biggest Transaction</h2>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-semibold">Monthly Insight</p>
+</div>
+</div>
+<!-- Content Scrollable Area -->
+<div class="px-8 pb-8 space-y-8">
+<!-- Main Stat & Visual Split -->
+<div class="flex items-center justify-between gap-12 py-4">
+<div class="flex-1 space-y-1">
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-headline font-black text-white">Zomato:</span>
+<span class="text-4xl font-mono font-medium text-white tracking-tighter">₹450</span>
+</div>
+<p class="text-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-base" data-icon="trending_up">trending_up</span>
+                            3% of total monthly spend
+                        </p>
+</div>
+<!-- Ring Chart -->
+<div class="relative flex items-center justify-center w-32 h-32 shrink-0">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="10"></circle>
+<circle class="text-primary-fixed drop-shadow-[0_0_8px_rgba(0,253,135,0.4)]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="353.5" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-2xl font-mono font-bold text-white leading-none">3%</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter">Total</span>
+</div>
+</div>
+</div>
+<!-- Transaction Details -->
+<div class="bg-surface-container-low rounded-lg p-5 space-y-4">
+<div class="flex justify-between items-center border-b border-white/5 pb-3">
+<span class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Date</span>
+<span class="text-sm font-mono text-white">Oct 24, 2023</span>
+</div>
+<div class="flex justify-between items-center border-b border-white/5 pb-3">
+<span class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Type</span>
+<span class="text-sm font-body font-semibold text-tertiary-fixed">Dining &amp; Hospitality</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Transaction ID</span>
+<span class="text-sm font-mono text-white">TXN-009842-VX</span>
+</div>
+</div>
+<!-- AI Section -->
+<div class="bg-gradient-to-br from-[#181920] to-[#121319] p-6 rounded-xl border border-primary/10 shadow-lg relative overflow-hidden group">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-headline font-bold text-white text-base tracking-tight">AI Spending Analysis</h3>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-6">
+                        This transaction represents a frequent recurring pattern in your lifestyle. By optimizing your meal frequency or using the Velocity HDFC card, you could reclaim <span class="text-primary-fixed font-mono">₹120</span> in cashback rewards annually on this category.
+                    </p>
+<button class="w-full h-12 bg-gradient-to-r from-primary-fixed to-tertiary-fixed rounded-lg text-on-primary-container font-headline font-black text-sm tracking-wide uppercase flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span>Synthesize Insight</span>
+<span class="material-symbols-outlined text-sm" data-icon="bolt">bolt</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>
