@@ -35,6 +35,12 @@ export interface User {
   email: string;
   avatar: string;
   role: Role;
+  phone: string;
+  location: string;
+  timezone: string;
+  currency: string;
+  avatarInitials: string;
+  joinedDate: string;
 }
 
 export interface InsightBiggestExpense {

@@ -4,28 +4,22 @@ import { Dashboard } from './pages/Dashboard';
 import { Transactions } from './pages/Transactions';
 import { Insights } from './pages/Insights';
 import { AdminDashboard } from './pages/AdminDashboard';
-import { useEffect } from 'react';
-import { useAuthStore } from './store/useAuthStore';
+import { ProfilePage } from './pages/ProfilePage';
+import { AIInsightsPage } from './pages/AIInsightsPage';
+import { ThemeInitializer } from './components/ui/ThemeInitializer';
 
 export default function App() {
-  const { darkMode } = useAuthStore();
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
   return (
     <BrowserRouter>
+      <ThemeInitializer />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/ai-insights" element={<AIInsightsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
